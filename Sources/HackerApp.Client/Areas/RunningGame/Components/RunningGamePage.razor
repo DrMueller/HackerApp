@@ -1,0 +1,22 @@
+﻿@using BlazorBootstrap
+@attribute [Route(Path)]
+
+<div>
+    @if (Game != null)
+    {
+        <div class="container">
+            <Button Color="@ButtonColor.Primary" @onclick="HandleEinsatzClicked">Neue Runde</Button>
+
+            <Button Color="@ButtonColor.Primary" @onclick="HandleResultat">Resultat</Button>
+
+            <input type="number" @bind-value="@Einsatz"  />
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <GameTable Game="@Game">
+                </GameTable>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,30 @@
+﻿<table class="table table-striped">
+    <thead>
+    <tr>
+        @foreach (var playerMoney in Game.Players)
+        {
+            <th>@playerMoney.Name</th>
+        }
+        <th>
+            <b>Pot</b>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var round in Game.Rounds)
+    {
+        <tr>
+            @foreach (var playerMoney in round.PlayerMoney)
+            {
+                <td>@playerMoney.Money</td>
+            }
+            <td>
+                <b>@round.Pot</b>
+            </td>
+
+        </tr>
+    }
+
+    </tbody>
+</table>

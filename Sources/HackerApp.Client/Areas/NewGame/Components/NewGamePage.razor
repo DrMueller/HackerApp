@@ -1,0 +1,20 @@
+﻿@using BlazorBootstrap
+@attribute [Route(Path)]
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <Button
+                Color="@ButtonColor.Primary" @onclick="HandleAddPlayerClicked">
+                + Spieler
+            </Button>
+
+            <Button 
+                Color="@ButtonColor.Primary" @onclick="HandleStartGameClicked">Start</Button>
+        </div>
+    </div>
+
+    <div class="row">
+        <EditPlayers Players="@Players"></EditPlayers>
+    </div>
+</div>

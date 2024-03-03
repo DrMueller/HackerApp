@@ -1,0 +1,59 @@
+name: $(Date:yyyyMMdd)$(Rev:.r)
+
+trigger:
+  batch: true # batch changes if true; start a new build for every push if false (default)
+  branches:
+    include:
+      - refs/heads/master
+
+variables:
+  BuildConfiguration: "Release"
+
+jobs:
+  - job: "BuildAndTest"
+    displayName: "Build and test"
+    pool:
+      name: Azure Pipelines
+      vmImage: ubuntu-latest
+    steps:
+      - task: DotNetCoreCLI@2
+        displayName: "Restore"
+        inputs:
+          command: restore
+          projects: "Sources/**/*.csproj"
+
+      - task: DotNetCoreCLI@2
+        displayName: "Build with warnings as errors"
+        inputs:
+          projects: "Backend/Sources/**/*.csproj"
+          arguments: '/p:TreatWarningsAsErrors="true" --configuration $(BuildConfiguration)'
+
+  - job: "RunResharper"
+    displayName: "Run ReSharper analysis"
+    pool:
+      name: Azure Pipelines
+      vmImage: windows-latest
+    steps:
+      - task: DotNetCoreCLI@2
+        displayName: "Restore project NuGets"
+        inputs:
+          command: restore
+          projects: "Backend/Sources/**/*.csproj"
+      - task: Cache@2
+        displayName: Cache ReSharperCLT
+        inputs:
+          key: ResharperCLT
+          path: $(Build.SourcesDirectory)/Lib/Resharper
+          cacheHitVar: ReSharperCLTCacheRestored
+      - task: NuGetCommand@2
+        displayName: "Restore ReSharper CLT NuGet"
+        inputs:
+          command: custom
+          arguments: "install JetBrains.ReSharper.CommandLineTools -source https://api.nuget.org/v3/index.json -Version 2021.2.0 -OutputDirectory $(Build.SourcesDirectory)/Lib/Resharper"
+        condition: ne(variables.ReSharperCLTCacheRestored, 'true')
+      - task: alanwales.resharper-code-analysis.custom-build-task.ResharperCli@2
+        displayName: "Run ReSharper analysis"
+        inputs:
+          solutionOrProjectPath: Backend/TODO.sln
+          commandLineInterfacePath: $(Build.SourcesDirectory)/Lib/Resharper/JetBrains.ReSharper.CommandLineTools.2021.2.0/tools
+          additionalArguments: "--no-build"
