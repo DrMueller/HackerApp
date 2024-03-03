@@ -38,7 +38,7 @@ jobs:
         displayName: "Restore project NuGets"
         inputs:
           command: restore
-          projects: "Backend/Sources/**/*.csproj"
+          projects: "Sources/**/*.csproj"
       - task: Cache@2
         displayName: Cache ReSharperCLT
         inputs:
