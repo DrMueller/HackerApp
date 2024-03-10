@@ -4,7 +4,7 @@ trigger: none
 
 resources:
   pipelines:
-    - pipeline: ha-create-artifacts-pip # Name of the pipeline resource
+    - pipeline: ca-pip # Name of the pipeline resource
       source: 02-HackerApp-Create-Artifacts # Name of the pipeline referenced by the pipeline resource
       trigger: true
 
