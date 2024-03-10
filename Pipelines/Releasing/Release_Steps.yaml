@@ -1,4 +1,3 @@
 steps:
   - template: StepTemplates/Initialize.yaml
-  - template: StepTemplates/Align_Resources.yaml
   - template: StepTemplates/Release_App.yaml
