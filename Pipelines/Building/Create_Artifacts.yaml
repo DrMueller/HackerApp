@@ -38,7 +38,7 @@ jobs:
 
       arguments: '--configuration $(BuildConfiguration) --output $(PublishPath) /p:DeleteExistingFiles=True'
 
-      zipAfterPublish: false
+      zipAfterPublish: true
 
       modifyOutputPath: false
 
