@@ -2,10 +2,6 @@
 {
     public class GameRound
     {
-        public IReadOnlyCollection<PlayerMoney> PlayerMoney { get; set; }
-        public double Pot { get; set; }
-
-    
-
+        public IReadOnlyCollection<GameRoundPlayerResult> Results { get; set; }
     }
 }

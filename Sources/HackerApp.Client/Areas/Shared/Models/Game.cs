@@ -1,26 +1,36 @@
-﻿namespace HackerApp.Client.Areas.Shared.Models;
-
-public class Game
+﻿namespace HackerApp.Client.Areas.Shared.Models
 {
-    public List<Player> Players { get; set; }
-
-    public List<GameRound> Rounds { get; set; }
-
-    public void AddSaetzu(double einsatz)
+    public class Game
     {
-        var lastRound = Rounds.First();
-        var newPlayerMoney = lastRound.PlayerMoney.Select(f => new PlayerMoney
-        {
-            Money = f.Money - einsatz,
-            Player = f.Player
-        }).ToList();
+        public List<Player> Players { get; set; }
 
-        var newPot = lastRound.Pot + (einsatz * lastRound.PlayerMoney.Count);
+        public List<GameRound> Rounds { get; set; }
 
-        Rounds.Insert(0, new GameRound
+        public void NewRound(double einsatz)
         {
-            Pot = newPot,
-            PlayerMoney = newPlayerMoney
-        });
+            var lastRound = Rounds.First();
+            var loosingRound = lastRound.Results.Any(f => f.ResultType == GameRoundPlayerResultType.HackedVerloren || f.ResultType == GameRoundPlayerResultType.MitgegangenVerloren);
+
+            if (!loosingRound)
+            {
+                var newRound = new GameRound();
+                var newPlayerMoney = lastRound.Results.Select(f => new GameRoundPlayerResult
+                {
+                    Player = f.Player,
+                    InitialMouney = einsatz,
+                    ResultType = GameRoundPlayerResultType.None,
+                }).ToList();
+
+                Rounds.Insert(0, newRound);
+            }
+
+            //var newPot = lastRound.FinalPot + (einsatz * lastRound.Results.Count);
+
+            //Rounds.Insert(0, new GameRound
+            //{
+            //    FinalPot = newPot,
+            //    Results = newPlayerMoney
+            //});
+        }
     }
 }

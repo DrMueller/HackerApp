@@ -1,0 +1,8 @@
+﻿@using HackerApp.Client.Areas.Shared.Models
+<InputSelect @bind-Value="@ResultType">
+    <option value="@GameRoundPlayerResultType.None">-</option>
+    <option value="@GameRoundPlayerResultType.HackedGewonnen">Gehackt - gewonnen</option>
+    <option value="@GameRoundPlayerResultType.HackedVerloren">Gehack - verloren</option>
+    <option value="@GameRoundPlayerResultType.MitgegangenGewonnen">Mit - gewonnen</option>
+    <option value="@GameRoundPlayerResultType.MitgegangenVerloren">Mit - verloren</option>
+</InputSelect>

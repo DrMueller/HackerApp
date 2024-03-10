@@ -1,0 +1,27 @@
+steps:
+  - task: qetza.replacetokens.replacetokens-task.replacetokens@5
+    displayName: "Replace tokens in *.tf"
+    inputs:
+      rootDirectory: $(System.DefaultWorkingDirectory)/drop/Terraform
+      targetFiles: "*.tf"
+      tokenPattern: azpipelines
+
+  - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
+    displayName: "Install Terraform dependencies"
+
+  - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV2@2
+    displayName: "Terraform init"
+    inputs:
+      workingDirectory: $(System.DefaultWorkingDirectory)/drop/Terraform
+      backendServiceArm: TerraformConnection
+      backendAzureRmResourceGroupName: Matthias
+      backendAzureRmStorageAccountName: terraformstuff
+      backendAzureRmContainerName: terraformstuffblob
+      backendAzureRmKey: tf/terraform.tfstate
+
+  - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV2@2
+    displayName: "Terraform apply"
+    inputs:
+      command: apply
+      workingDirectory: $(System.DefaultWorkingDirectory)/drop/Terraform
+      environmentServiceNameAzureRM: TerraformConnection

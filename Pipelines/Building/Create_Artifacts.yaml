@@ -13,8 +13,6 @@ resources:
 variables:
   BuildConfiguration: 'Release'
   PublishPath: '$(Build.ArtifactStagingDirectory)/App'
-  PostmanOutputPath: '$(Build.ArtifactStagingDirectory)/Postman'
-  SqlOutputFile: '$(Build.ArtifactStagingDirectory)/SQL/Migration.sql'
 
 jobs:
 - job: 'BuildAndPublishAsArtifact'
@@ -30,15 +28,15 @@ jobs:
       projects: 'Sources/**/*.csproj'
 
   - task: DotNetCoreCLI@2
-    displayName: Publish Web API
+    displayName: Publish Blazor
     inputs:
       command: publish
 
       publishWebProjects: false
 
-      projects: 'Backend/Sources/Application/WebApi/Todo.WebApi.csproj'
+      projects: 'Sources/HackerApp/HackerApp.csproj'
 
-      arguments: '--configuration $(BuildConfiguration) --output $(PublishPath)/WebApp /p:DeleteExistingFiles=True'
+      arguments: '--configuration $(BuildConfiguration) --output $(PublishPath) /p:DeleteExistingFiles=True'
 
       zipAfterPublish: false
 

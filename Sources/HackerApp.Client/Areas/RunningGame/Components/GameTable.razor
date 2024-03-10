@@ -15,14 +15,7 @@
     @foreach (var round in Game.Rounds)
     {
         <tr>
-            @foreach (var playerMoney in round.PlayerMoney)
-            {
-                <td>@playerMoney.Money</td>
-            }
-            <td>
-                <b>@round.Pot</b>
-            </td>
-
+            <ResultRow PlayerResults="@round.Results"></ResultRow>
         </tr>
     }
 

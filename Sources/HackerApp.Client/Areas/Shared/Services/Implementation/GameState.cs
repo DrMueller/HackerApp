@@ -1,44 +1,45 @@
 ﻿using Blazored.LocalStorage;
 using HackerApp.Client.Areas.Shared.Models;
 
-namespace HackerApp.Client.Areas.Shared.Services.Implementation;
-
-public class GameState(ILocalStorageService localStorage) : IGameState
+namespace HackerApp.Client.Areas.Shared.Services.Implementation
 {
-    private const string GameKey = "GameKey";
-
-    public async Task InitializeAsync(IReadOnlyCollection<Player> players)
+    public class GameState(ILocalStorageService localStorage) : IGameState
     {
-        var game = new Game
+        private const string GameKey = "GameKey";
+
+        public async Task InitializeAsync(IReadOnlyCollection<Player> players)
         {
-            Players = players.ToList(),
-            Rounds = new List<GameRound>
+            var game = new Game
             {
-                new()
+                Players = players.ToList(),
+                Rounds = new List<GameRound>
                 {
-                    Pot = players.Count,
-                    PlayerMoney = players.Select(f => new PlayerMoney
+                    new()
                     {
-                        Money = -1,
-                        Player = f
-                    }).ToList()
+                        //FinalPot = players.Count,
+                        Results = players.Select(f =>
+                            new GameRoundPlayerResult
+                            {
+                                ResultType = GameRoundPlayerResultType.None
+                            }).ToList()
+                    }
                 }
-            }
-        };
+            };
 
-        await localStorage.RemoveItemAsync(GameKey);
-        await localStorage.SetItemAsync(GameKey, game);
-    }
+            await localStorage.RemoveItemAsync(GameKey);
+            await localStorage.SetItemAsync(GameKey, game);
+        }
 
-    public async Task<Game> LoadAsync()
-    {
-        var item = await localStorage.GetItemAsync<Game>(GameKey);
+        public async Task<Game> LoadAsync()
+        {
+            var item = await localStorage.GetItemAsync<Game>(GameKey);
 
-        return item!;
-    }
+            return item!;
+        }
 
-    public async Task SaveAsync(Game game)
-    {
-        await localStorage.SetItemAsync(GameKey, game);
+        public async Task SaveAsync(Game game)
+        {
+            await localStorage.SetItemAsync(GameKey, game);
+        }
     }
 }

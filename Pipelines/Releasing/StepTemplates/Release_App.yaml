@@ -1,0 +1,10 @@
+steps:
+  - task: AzureFunctionApp@1
+    displayName: "Azure Function App Deploy"
+    inputs:
+      azureSubscription: "Pay-As-You-Go"
+      appType: functionApp
+      appName: $(AppName)
+      deploymentMethod: zipDeploy
+      package: "$(System.DefaultWorkingDirectory)/drop/App/App.zip"
+      appSettings: "-AzureDevOpsPat $(AzureDevOpsPat) -SendGridApiKey $(SendGridApiKey) -APPLICATIONINSIGHTS_CONNECTION_STRING $(ApplicationInsightsConnectionString) -APPINSIGHTS_INSTRUMENTATIONKEY $(ApplicationInsightsInstrumentationKey) -FUNCTIONS_WORKER_RUNTIME dotnet"
