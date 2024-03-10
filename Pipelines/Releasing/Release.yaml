@@ -12,7 +12,6 @@ pool:
   name: Azure Pipelines
   vmImage: windows-2022
 
-
 stages:
   - stage: Production
     displayName: "Production"
