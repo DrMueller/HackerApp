@@ -5,7 +5,7 @@ trigger: none # will disable CI builds entirely
 resources:
   pipelines:
   - pipeline: ci-pip  # Name of the pipeline resource
-    source: CI # Name of the pipeline referenced by the pipeline resource
+    source: 02-HackerApp-Create-Artifacts # Name of the pipeline referenced by the pipeline resource
     trigger: 
       branches:
       - refs/heads/master

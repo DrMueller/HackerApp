@@ -4,44 +4,22 @@ trigger: none
 
 resources:
   pipelines:
-    - pipeline: adrs-create-artifacts-pip # Name of the pipeline resource
-      source: 02-ADRS-Create-Artifacts # Name of the pipeline referenced by the pipeline resource
+    - pipeline: ha-create-artifacts-pip # Name of the pipeline resource
+      source: 02-HackerApp-Create-Artifacts # Name of the pipeline referenced by the pipeline resource
       trigger: true
 
 pool:
   name: Azure Pipelines
-  vmImage: windows-2019
+  vmImage: windows-2022
 
-variables:
-  - name: isMaster
-    value: $[startsWith(variables['Build.SourceBranch'], 'refs/heads/master')]
-  - group: ADRS-General
 
 stages:
-  - stage: Development
-    displayName: "Development"
-    condition: eq(variables.isMaster, false)
-    jobs:
-      - deployment: "DeploymentDevelopment"
-        displayName: "Deployment Development"
-        environment: "ADRS-Development"
-        variables:
-          - group: ADRS-Dev
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-                - template: Release_Steps.yaml
-
   - stage: Production
     displayName: "Production"
-    condition: eq(variables.isMaster, true)
     jobs:
       - deployment: "DeploymentProduction"
         displayName: "Deployment Production"
-        environment: "ADRS-Production"
-        variables:
-          - group: ADRS-Prod
+        environment: "HackerApp-Production"
         strategy:
           runOnce:
             deploy:
