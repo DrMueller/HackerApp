@@ -7,39 +7,24 @@ namespace HackerApp.Client.Areas.Shared.Services.Implementation
     {
         private const string GameKey = "GameKey";
 
-        public async Task InitializeAsync(IReadOnlyCollection<Player> players)
+        public async Task InitializeAsync(IReadOnlyCollection<string> playerNames)
         {
-            var game = new Game
-            {
-                Players = players.ToList(),
-                Rounds = new List<GameRound>
-                {
-                    new()
-                    {
-                        //FinalPot = players.Count,
-                        Results = players.Select(f =>
-                            new GameRoundPlayerResult
-                            {
-                                ResultType = GameRoundPlayerResultType.None
-                            }).ToList()
-                    }
-                }
-            };
+           
 
             await localStorage.RemoveItemAsync(GameKey);
-            await localStorage.SetItemAsync(GameKey, game);
+            await localStorage.SetItemAsync(GameKey, playerNames);
         }
 
-        public async Task<Game> LoadAsync()
+        public async Task<List<string>> LoadPlayerNamesAsync()
         {
-            var item = await localStorage.GetItemAsync<Game>(GameKey);
+            var item = await localStorage.GetItemAsync<List<string>>(GameKey);
 
             return item!;
         }
 
         public async Task SaveAsync(Game game)
         {
-            await localStorage.SetItemAsync(GameKey, game);
+            //await localStorage.SetItemAsync(GameKey, game);
         }
     }
 }

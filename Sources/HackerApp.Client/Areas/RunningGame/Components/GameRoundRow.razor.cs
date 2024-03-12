@@ -3,12 +3,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace HackerApp.Client.Areas.RunningGame.Components
 {
-    public partial class ResultRow
+    public partial class GameRoundRow
     {
         [Parameter]
-        public IReadOnlyCollection<GameRoundPlayerResult> PlayerResults { get; set; }
-
-        
-
+        public required GameRound GameRound { get; set; }
     }
 }

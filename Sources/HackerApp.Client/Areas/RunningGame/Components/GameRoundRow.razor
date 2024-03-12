@@ -1,0 +1,15 @@
+﻿@foreach (var res in GameRound.Results)
+{
+    <td>
+        @res.PlayerMoneyChanged
+        <ResultTypeInput @bind-ResultType="@res.ResultType"></ResultTypeInput>
+    </td>
+}
+
+<td>
+    @GameRound.Pot
+</td>
+
+<td>
+    @GameRound.UsedEinsatz
+</td>

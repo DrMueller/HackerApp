@@ -1,5 +1,7 @@
 ﻿@using HackerApp.Client.Areas.Shared.Models
-<InputSelect @bind-Value="@ResultType">
+<InputSelect Value="ResultType"
+             ValueExpression="() => ResultType"
+             ValueChanged="@((GameRoundPlayerResultType selectedValue) => ResultTypeChanged.InvokeAsync(selectedValue))">
     <option value="@GameRoundPlayerResultType.None">-</option>
     <option value="@GameRoundPlayerResultType.HackedGewonnen">Gehackt - gewonnen</option>
     <option value="@GameRoundPlayerResultType.HackedVerloren">Gehack - verloren</option>

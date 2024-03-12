@@ -1,13 +1,14 @@
-﻿using HackerApp.Client.Areas.Shared.Models;
+﻿using HackerApp.Client.Areas.NewGame.Models;
+using HackerApp.Client.Areas.Shared.Models;
 using Microsoft.AspNetCore.Components;
 
 namespace HackerApp.Client.Areas.NewGame.Components;
 
 public partial class EditPlayers
 {
-    [Parameter] public required IList<Player> Players { get; set; }
+    [Parameter] public required IList<NewPlayer> Players { get; set; }
 
-    private void HandleRemovePlayerButtonClicked(Player player)
+    private void HandleRemovePlayerButtonClicked(NewPlayer player)
     {
         Players.Remove(player);
     }

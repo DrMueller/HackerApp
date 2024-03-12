@@ -8,6 +8,9 @@
         <th>
             <b>Pot</b>
         </th>
+        <th>
+            <b>Einsatz</b>
+        </th>
     </tr>
     </thead>
     <tbody>
@@ -15,7 +18,7 @@
     @foreach (var round in Game.Rounds)
     {
         <tr>
-            <ResultRow PlayerResults="@round.Results"></ResultRow>
+            <GameRoundRow GameRound="@round"></GameRoundRow>
         </tr>
     }
 

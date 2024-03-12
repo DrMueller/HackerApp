@@ -2,12 +2,10 @@
 {
     public class GameRoundPlayerResult
     {
-        public Player Player { get; set; }
-        
-        public double MoneyAfterResult { get; set; }
+        public double PlayerMoneyChanged { get; set; }
 
-        public double InitialMouney { get; set; }
-        
+        public Player Player { get; set; }
+
         public GameRoundPlayerResultType ResultType { get; set; }
     }
 }

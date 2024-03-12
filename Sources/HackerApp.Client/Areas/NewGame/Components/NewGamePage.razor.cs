@@ -1,30 +1,33 @@
-﻿using HackerApp.Client.Areas.RunningGame.Components;
+﻿using HackerApp.Client.Areas.NewGame.Models;
+using HackerApp.Client.Areas.RunningGame.Components;
 using HackerApp.Client.Areas.Shared.Models;
 using HackerApp.Client.Areas.Shared.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace HackerApp.Client.Areas.NewGame.Components;
-
-public partial class NewGamePage
+namespace HackerApp.Client.Areas.NewGame.Components
 {
-    public const string Path = "/games/new";
-
-    [Inject]
-    public IGameState GameState { get; set; }
-
-    [Inject]
-    public NavigationManager Navigator { get; set; }
-
-    private IList<Player> Players { get; } = new List<Player>();
-
-    private void HandleAddPlayerClicked()
+    public partial class NewGamePage
     {
-        Players.Add(new Player());
-    }
+        public const string Path = "/";
 
-    private async Task HandleStartGameClicked()
-    {
-        await GameState.InitializeAsync(Players.ToList());
-        Navigator.NavigateTo(RunningGamePage.Path);
+        [Inject]
+        public NavigationManager Navigator { get; set; }
+
+        [Inject]
+        public IGameState GameState { get; set; }
+
+        private IList<NewPlayer> Players { get; } = new List<NewPlayer>();
+
+        private void HandleAddPlayerClicked()
+        {
+            Players.Add(new NewPlayer());
+        }
+
+        private async Task HandleStartGameClicked()
+        {
+            var playerNames = Players.Select(f => f.Name).ToList();
+            await GameState.InitializeAsync(playerNames);
+            Navigator.NavigateTo(RunningGamePage.Path);
+        }
     }
 }

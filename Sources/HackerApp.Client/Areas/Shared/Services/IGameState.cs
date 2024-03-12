@@ -4,9 +4,9 @@ namespace HackerApp.Client.Areas.Shared.Services;
 
 public interface IGameState
 {
-    Task InitializeAsync(IReadOnlyCollection<Player> players);
+    Task InitializeAsync(IReadOnlyCollection<string> playerNames);
 
-    Task<Game> LoadAsync();
+    Task<List<string>> LoadPlayerNamesAsync();
 
     Task SaveAsync(Game game);
 }
