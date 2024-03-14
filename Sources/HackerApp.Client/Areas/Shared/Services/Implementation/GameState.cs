@@ -1,5 +1,4 @@
 ﻿using Blazored.LocalStorage;
-using HackerApp.Client.Areas.Shared.Models;
 
 namespace HackerApp.Client.Areas.Shared.Services.Implementation
 {
@@ -9,8 +8,6 @@ namespace HackerApp.Client.Areas.Shared.Services.Implementation
 
         public async Task InitializeAsync(IReadOnlyCollection<string> playerNames)
         {
-           
-
             await localStorage.RemoveItemAsync(GameKey);
             await localStorage.SetItemAsync(GameKey, playerNames);
         }
@@ -20,11 +17,6 @@ namespace HackerApp.Client.Areas.Shared.Services.Implementation
             var item = await localStorage.GetItemAsync<List<string>>(GameKey);
 
             return item!;
-        }
-
-        public async Task SaveAsync(Game game)
-        {
-            //await localStorage.SetItemAsync(GameKey, game);
         }
     }
 }

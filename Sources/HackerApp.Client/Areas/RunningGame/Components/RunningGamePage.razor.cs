@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using HackerApp.Client.Areas.Shared.Models;
+﻿using HackerApp.Client.Areas.Shared.Models;
 using HackerApp.Client.Areas.Shared.Services;
 using Microsoft.AspNetCore.Components;
 
@@ -9,13 +8,13 @@ namespace HackerApp.Client.Areas.RunningGame.Components
     {
         public const string Path = "/games/run";
 
-        private double Einsatz { get; set; } = 0.50;
-
         [Inject]
-        public IGameState GameState { get; set; }
+        public required IGameState GameState { get; set; }
 
         [Parameter]
         public required IReadOnlyCollection<Player> Players { get; set; }
+
+        private double Einsatz { get; set; } = 0.50;
 
         private Game? Game { get; set; }
 
@@ -28,9 +27,9 @@ namespace HackerApp.Client.Areas.RunningGame.Components
             Game = new Game(players);
         }
 
-        private async Task Tra()
+        private void HandleNewRoundClicked()
         {
-            Game.NewRound(Einsatz);
+            Game!.AddNewRound(Einsatz);
         }
     }
 }

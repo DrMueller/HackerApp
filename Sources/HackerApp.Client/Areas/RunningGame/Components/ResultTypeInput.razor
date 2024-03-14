@@ -1,10 +1,10 @@
-﻿@using HackerApp.Client.Areas.Shared.Models
+﻿@using HackerApp.Client.Areas.Shared.Models.PlayerGameRounds
 <InputSelect Value="ResultType"
              ValueExpression="() => ResultType"
              ValueChanged="@((GameRoundPlayerResultType selectedValue) => ResultTypeChanged.InvokeAsync(selectedValue))">
     <option value="@GameRoundPlayerResultType.None">-</option>
     <option value="@GameRoundPlayerResultType.HackedGewonnen">Gehackt - gewonnen</option>
-    <option value="@GameRoundPlayerResultType.HackedVerloren">Gehack - verloren</option>
+    <option value="@GameRoundPlayerResultType.HackedVerloren">Gehackt - verloren</option>
     <option value="@GameRoundPlayerResultType.MitgegangenGewonnen">Mit - gewonnen</option>
     <option value="@GameRoundPlayerResultType.MitgegangenVerloren">Mit - verloren</option>
 </InputSelect>

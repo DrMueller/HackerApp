@@ -5,7 +5,7 @@
     @if (Game != null)
     {
         <div class="container">
-            <Button Color="@ButtonColor.Primary" @onclick="Tra">Neue Runde</Button>
+            <Button Color="@ButtonColor.Primary" @onclick="HandleNewRoundClicked">Neue Runde</Button>
             <input type="number" @bind-value="@Einsatz"/>
         </div>
 

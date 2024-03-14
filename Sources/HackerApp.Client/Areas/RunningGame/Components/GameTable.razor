@@ -1,9 +1,9 @@
 ﻿<table class="table table-striped">
     <thead>
     <tr>
-        @foreach (var playerMoney in Game.Players)
+        @foreach (var player in Game.Players)
         {
-            <th>@playerMoney.Name</th>
+            <th>@player.Name (@player.CalculateOverallLossProfit(Game.Rounds))</th>
         }
         <th>
             <b>Pot</b>

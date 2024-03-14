@@ -1,4 +1,4 @@
-﻿using HackerApp.Client.Areas.Shared.Models;
+﻿using HackerApp.Client.Areas.Shared.Models.PlayerGameRounds;
 using Microsoft.AspNetCore.Components;
 
 namespace HackerApp.Client.Areas.RunningGame.Components

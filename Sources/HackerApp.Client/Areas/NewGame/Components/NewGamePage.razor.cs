@@ -1,6 +1,5 @@
 ﻿using HackerApp.Client.Areas.NewGame.Models;
 using HackerApp.Client.Areas.RunningGame.Components;
-using HackerApp.Client.Areas.Shared.Models;
 using HackerApp.Client.Areas.Shared.Services;
 using Microsoft.AspNetCore.Components;
 
@@ -11,16 +10,19 @@ namespace HackerApp.Client.Areas.NewGame.Components
         public const string Path = "/";
 
         [Inject]
-        public NavigationManager Navigator { get; set; }
+        public required IGameState GameState { get; set; }
 
         [Inject]
-        public IGameState GameState { get; set; }
+        public required NavigationManager Navigator { get; set; }
 
         private IList<NewPlayer> Players { get; } = new List<NewPlayer>();
 
         private void HandleAddPlayerClicked()
         {
-            Players.Add(new NewPlayer());
+            Players.Add(new NewPlayer
+            {
+                Name = string.Empty
+            });
         }
 
         private async Task HandleStartGameClicked()

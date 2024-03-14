@@ -1,12 +1,19 @@
 ﻿namespace HackerApp.Client.Areas.Shared.Models
 {
-    public class Player
+    public class Player(string name)
     {
-        public string Name { get; }
+        public string Name { get; } = name;
 
-        public Player(string name)
+        public double CalculateOverallLossProfit(IReadOnlyCollection<GameRound> rounds)
         {
-            Name = name;
+            var einsaetze = rounds
+                .Where(f => f.EinsatzWasPaid)
+                .Where(f => f.PlayerGameRounds.Any(g => g.Player.Name == Name))
+                .Sum(f => f.RoundEinsatz) * -1;
+
+            var earnings = rounds.Sum(f => f.CalculcateEarnings(this));
+
+            return einsaetze + earnings;
         }
     }
 }
