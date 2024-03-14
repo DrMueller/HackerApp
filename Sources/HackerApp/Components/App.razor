@@ -7,14 +7,20 @@
     <base href="/"/>
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css"/>
     <link rel="stylesheet" href="app.css"/>
+    @* ReSharper disable start Html.PathError *@
     <link rel="stylesheet" href="HackerApp.styles.css"/>
+    @* ReSharper disable end Html.PathError *@
+
     <link rel="icon" type="image/png" href="M.png"/>
     <HeadOutlet @rendermode="InteractiveWebAssembly"/>
 </head>
 
 <body>
 <Routes @rendermode="InteractiveWebAssembly"/>
+@* ReSharper disable start Html.PathError *@
 <script src="_framework/blazor.web.js"></script>
+@* ReSharper disable end Html.PathError *@
+
 </body>
 
 </html>
