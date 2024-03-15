@@ -3,3 +3,4 @@
 // be reflected on the first load after each change).
 // ReSharper disable once Html.EventNotResolved
 self.addEventListener("fetch", () => { });
+
