@@ -2,6 +2,7 @@ name: 1.0$(rev:.r) # build numbering format
 
 trigger: none
 
+
 resources:
   pipelines:
     - pipeline: ca-pip # Name of the pipeline resource
