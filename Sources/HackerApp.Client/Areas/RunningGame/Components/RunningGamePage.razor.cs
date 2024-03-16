@@ -1,4 +1,5 @@
-﻿using HackerApp.Client.Areas.Shared.Models;
+﻿using HackerApp.Client.Areas.NewGame.Components;
+using HackerApp.Client.Areas.Shared.Models;
 using HackerApp.Client.Infrastructure.State.Services;
 using Microsoft.AspNetCore.Components;
 
@@ -10,6 +11,9 @@ namespace HackerApp.Client.Areas.RunningGame.Components
 
         [Inject]
         public required IGameState GameState { get; set; }
+
+        [Inject]
+        public required NavigationManager Navigator { get; set; }
 
         [Parameter]
         public required IReadOnlyCollection<Player> Players { get; set; }
@@ -23,10 +27,15 @@ namespace HackerApp.Client.Areas.RunningGame.Components
             Game = await GameState.LoadAsync();
         }
 
-        private void HandleNewRoundClicked()
+        private async Task AddNewRoundAsync()
         {
             Game!.AddNewRound(Einsatz);
-            GameState.PersistAsync(Game);
+            await GameState.PersistAsync(Game);
+        }
+
+        private void CreateNewGame()
+        {
+            Navigator.NavigateTo(NewGamePage.Path);
         }
     }
 }
