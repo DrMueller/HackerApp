@@ -18,7 +18,7 @@ namespace HackerApp.Client.Infrastructure.State.Services.Servants.Implementation
                 var round = MapGameRound(
                     roundDto,
                     players,
-                    rounds.First());
+                    rounds.FirstOrDefault());
 
                 rounds.Insert(0, round);
             }
