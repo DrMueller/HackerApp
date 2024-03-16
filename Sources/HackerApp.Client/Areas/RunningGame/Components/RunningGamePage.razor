@@ -1,30 +1,27 @@
 ﻿@using BlazorBootstrap
 @attribute [Route(Path)]
-<div>
-    @if (Game != null)
-    {
-        <div class="container">
-            <div class="d-flex flex-row justify-content-start">
-                <div class="justify-content-start">
-                    <Button Color="@ButtonColor.Primary" @onclick="AddNewRoundAsync">Neue Runde</Button>
-                    <input type="number" @bind-value="@Einsatz"/>
-
-                </div>
-                <div class="justify-content-end">
-                    <Button Color="@ButtonColor.Primary" @onclick="CreateNewGame">Neues Spiel</Button>
-                </div>
+@if (Game != null)
+{
+    <div class="container">
+        <div class="d-flex flex-row">
+            <div>
+                <Button Color="@ButtonColor.Primary" @onclick="AddNewRoundAsync">Neue Runde</Button>
+                <input type="number" @bind-value="@Einsatz"/>
             </div>
-
-            <div class="row">
-                <div class="col">
-                    <GameTable Game="@Game">
-                    </GameTable>
-                </div>
+            <div class="ms-auto">
+                <Button Color="@ButtonColor.Primary" @onclick="CreateNewGame">Neues Spiel</Button>
             </div>
         </div>
-    }
-    else
-    {
-        <p>loading..</p>
-    }
-</div>
+
+        <div class="row">
+            <div class="col">
+                <GameTable Game="@Game">
+                </GameTable>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>loading..</p>
+}
