@@ -1,5 +1,5 @@
 ﻿using HackerApp.Client.Areas.Shared.Models;
-using HackerApp.Client.Areas.Shared.Services;
+using HackerApp.Client.Infrastructure.State.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace HackerApp.Client.Areas.RunningGame.Components
@@ -20,16 +20,13 @@ namespace HackerApp.Client.Areas.RunningGame.Components
 
         protected override async Task OnInitializedAsync()
         {
-            var playerNames = await GameState.LoadPlayerNamesAsync();
-
-            var players = playerNames.Select(f => new Player(f)).ToList();
-
-            Game = new Game(players);
+            Game = await GameState.LoadAsync();
         }
 
         private void HandleNewRoundClicked()
         {
             Game!.AddNewRound(Einsatz);
+            GameState.PersistAsync(Game);
         }
     }
 }

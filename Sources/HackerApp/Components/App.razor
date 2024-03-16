@@ -14,15 +14,15 @@
     <link rel="icon" type="image/png" href="M.png"/>
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png"/>
     <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png"/>
-    <HeadOutlet @rendermode="InteractiveWebAssembly"/>
+    <HeadOutlet @rendermode="new InteractiveWebAssemblyRenderMode(false)"/>
 </head>
 
 <body>
-<Routes @rendermode="InteractiveWebAssembly"/>
+<Routes @rendermode="new InteractiveWebAssemblyRenderMode(false)"/>
 @* ReSharper disable start Html.PathError *@
 <script src="_framework/blazor.web.js"></script>
 @* ReSharper disable end Html.PathError *@
-<script src="pwa.js"></script>
+@* <script src="pwa.js"></script> *@
 <script>navigator.serviceWorker.register('service-worker.js');</script>
 
 </body>

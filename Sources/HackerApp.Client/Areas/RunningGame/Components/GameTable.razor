@@ -3,7 +3,7 @@
     <tr>
         @foreach (var player in Game.Players)
         {
-            <th>@player.Name (@player.CalculateOverallLossProfit(Game.Rounds))</th>
+            <th>@player.Name (@player.CalculateOverallLossProfit(Game.GameRounds))</th>
         }
         <th>
             <b>Pot</b>
@@ -15,7 +15,7 @@
     </thead>
     <tbody>
 
-    @foreach (var round in Game.Rounds)
+    @foreach (var round in Game.GameRounds)
     {
         <tr>
             <GameRoundRow GameRound="@round"></GameRoundRow>

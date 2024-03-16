@@ -1,11 +1,11 @@
 using Blazored.LocalStorage;
-using HackerApp.Client.Areas.Shared.Services;
-using HackerApp.Client.Areas.Shared.Services.Implementation;
 using HackerApp.Components;
+using JetBrains.Annotations;
 using _Imports = HackerApp.Client._Imports;
 
 namespace HackerApp
 {
+    [UsedImplicitly]
     public class Program
     {
         public static void Main(string[] args)
@@ -15,9 +15,9 @@ namespace HackerApp
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveWebAssemblyComponents();
+
             builder.Services.AddBlazorBootstrap();
             builder.Services.AddBlazoredLocalStorage();
-            builder.Services.AddScoped<IGameState, GameState>();
 
             var app = builder.Build();
 

@@ -1,16 +1,21 @@
 ﻿namespace HackerApp.Client.Areas.Shared.Models
 {
-    public class Game(IReadOnlyCollection<Player> players)
+    public class Game(
+        IReadOnlyCollection<Player> players,
+        IList<GameRound> rounds)
     {
-        private readonly List<GameRound> _rounds = new();
+        public Game(IReadOnlyCollection<Player> players)
+            : this(players, new List<GameRound>())
+        {
+        }
+
+        public IReadOnlyCollection<GameRound> GameRounds => rounds.AsReadOnly();
 
         public IReadOnlyCollection<Player> Players { get; } = players;
 
-        public IReadOnlyCollection<GameRound> Rounds => _rounds;
-
         public void AddNewRound(double roundEinsatz)
         {
-            _rounds.Insert(0, GameRound.Create(roundEinsatz, Players, _rounds.FirstOrDefault()));
+            rounds.Insert(0, GameRound.Create(roundEinsatz, Players, rounds.FirstOrDefault()));
         }
     }
 }

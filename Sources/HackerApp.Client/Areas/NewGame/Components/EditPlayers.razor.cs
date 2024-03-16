@@ -8,9 +8,17 @@ namespace HackerApp.Client.Areas.NewGame.Components
         [Parameter]
         public required IList<NewPlayer> Players { get; set; }
 
-        private void HandleRemovePlayerButtonClicked(NewPlayer player)
+        private void HandleAddPlayerClicked()
         {
-            Players.Remove(player);
+            Players.Add(new NewPlayer
+            {
+                Name = string.Empty
+            });
+        }
+
+        private void RemovePlayer(NewPlayer obj)
+        {
+            Players.Remove(obj);
         }
     }
 }

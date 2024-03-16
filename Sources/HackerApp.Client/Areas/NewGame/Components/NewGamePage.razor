@@ -5,18 +5,16 @@
     <div class="row">
         <div class="col">
             <Button
-                Color="@ButtonColor.Primary" @onclick="HandleAddPlayerClicked">
-                + Spieler
+                Color="@ButtonColor.Primary" @onclick="StartNewGame">
+                Neues Spiel starten
             </Button>
 
             <Button
-                Color="@ButtonColor.Primary" @onclick="HandleStartGameClicked">
-                Start
+                Color="@ButtonColor.Primary" @onclick="LoadLastGame">
+                Laden
             </Button>
         </div>
     </div>
 
-    <div class="row">
-        <EditPlayers Players="@Players"></EditPlayers>
-    </div>
+    <EditPlayers Players="@Players"></EditPlayers>
 </div>
