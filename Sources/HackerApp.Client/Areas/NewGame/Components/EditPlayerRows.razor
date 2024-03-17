@@ -1,23 +1,14 @@
-﻿@using BlazorBootstrap
-<div class="container">
+﻿<div class="container">
     <div class="row">
         @if (Players != null)
         {
             @foreach (var player in Players)
             {
-                <div class="row g-3 align-items-center">
-                    <div class="col-auto">
-                        <label for="name" class="col-form-label">Name</label>
-                    </div>
-                    <div class="col-auto">
-                        <input type="text" id="name" class="form-control" @bind-value=@player.Name>
-                    </div>
-                    <div class="col-auto">
-                        <Button Size="@Size.Small" Color="@ButtonColor.Secondary" @onclick="() => RemovePlayer(player)">
-                            -
-                        </Button>
-                    </div>
-                </div>
+                <EditPlayerRow
+                    PlayerNameChanged="@PlayerNameChanged"
+                    RemovePlayerRequired="@RemovePlayerRequired"
+                    Player="@player">
+                </EditPlayerRow>
             }
         }
     </div>

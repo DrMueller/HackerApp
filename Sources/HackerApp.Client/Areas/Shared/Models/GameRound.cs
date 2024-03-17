@@ -4,6 +4,7 @@ using HackerApp.Client.Areas.Shared.Models.PlayerGameRounds;
 namespace HackerApp.Client.Areas.Shared.Models
 {
     public class GameRound(
+        int roundNumber,
         double roundEinsatz,
         IReadOnlyCollection<PlayerGameRound> playerGameRounds,
         GameRound? prevRound)
@@ -27,6 +28,8 @@ namespace HackerApp.Client.Areas.Shared.Models
             }
         }
 
+        public int RoundNumber { get; } = roundNumber;
+
         public RoundPot RoundPot
         {
             get
@@ -41,6 +44,7 @@ namespace HackerApp.Client.Areas.Shared.Models
                 if (loosers.Any())
                 {
                     var potValue = loosers.Sum(f => prevRound.CalculcateEarnings(f.Player)) * -1;
+
                     return new RoundPot(potValue);
                 }
 
@@ -62,7 +66,13 @@ namespace HackerApp.Client.Areas.Shared.Models
         {
             var playerGameRounds = players.Select(f => new PlayerGameRound(f, new GameRoundPlayerResult())).ToList();
 
-            return new GameRound(einsatz, playerGameRounds, prevRound);
+            var roundNumber = prevRound?.RoundNumber + 1 ?? 0;
+
+            return new GameRound(
+                roundNumber,
+                einsatz,
+                playerGameRounds,
+                prevRound);
         }
 
         public double CalculcateEarnings(Player player)

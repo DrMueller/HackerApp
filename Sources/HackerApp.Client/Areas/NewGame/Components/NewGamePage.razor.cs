@@ -18,7 +18,14 @@ namespace HackerApp.Client.Areas.NewGame.Components
         [Inject]
         public required NavigationManager Navigator { get; set; }
 
+        private bool GameConfigIsValid { get; set; }
+
         private IList<NewPlayer> Players { get; } = new List<NewPlayer>();
+
+        private void HandleValidationChanged(bool obj)
+        {
+            GameConfigIsValid = obj;
+        }
 
         private void LoadLastGame()
         {

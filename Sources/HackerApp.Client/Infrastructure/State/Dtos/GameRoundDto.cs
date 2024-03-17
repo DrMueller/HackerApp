@@ -6,8 +6,10 @@ namespace HackerApp.Client.Infrastructure.State.Dtos
     [PublicAPI]
     public class GameRoundDto
     {
-        public required List<PlayerGameRoundDto> PlayerGameRounds { get; set; }
+        public required int RoundNumber { get; init; }
 
-        public double RoundEinsatz { get; set; }
+        public required List<PlayerGameRoundDto> PlayerGameRounds { get; init; }
+
+        public double RoundEinsatz { get; init; }
     }
 }

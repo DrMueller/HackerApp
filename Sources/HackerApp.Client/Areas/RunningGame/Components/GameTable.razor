@@ -3,7 +3,7 @@
     <tr>
         @foreach (var player in Game.Players)
         {
-            <th>@player.Name (@player.CalculateOverallLossProfit(Game.GameRounds))</th>
+            <th>@player.Name (@player.CalculateOverallLossProfit(Game.GameRounds).ToString("N2"))</th>
         }
         <th>
             <b>Pot</b>

@@ -6,6 +6,6 @@ namespace HackerApp.Client.Infrastructure.State.Dtos.PlayerGameRounds
     [PublicAPI]
     public class GameRoundPlayerResultDto
     {
-        public GameRoundPlayerResultType ResultType { get; set; }
+        public GameRoundPlayerResultType ResultType { get; init; }
     }
 }

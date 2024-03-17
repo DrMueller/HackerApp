@@ -1,14 +1,14 @@
 ﻿@foreach (var res in GameRound.PlayerGameRounds)
 {
     <td>
-        @GameRound.CalculcateEarnings(res.Player)
+        @GameRound.CalculcateEarnings(res.Player).ToString("N2")
 
         <ResultTypeInput @bind-ResultType="@res.Result.ResultType"></ResultTypeInput>
     </td>
 }
 
 <td>
-    @GameRound.RoundPot.Value
+    @GameRound.RoundPot.Value.ToString("N2")
 </td>
 
 <td>

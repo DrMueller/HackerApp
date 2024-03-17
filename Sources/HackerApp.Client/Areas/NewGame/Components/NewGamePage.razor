@@ -4,17 +4,24 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <Button
-                Color="@ButtonColor.Primary" @onclick="StartNewGame">
-                Neues Spiel starten
-            </Button>
+            <Card>
+                <CardHeader>
+                    <h3>Spiel-Optionen</h3>
+                </CardHeader>
+                <CardBody>
+                    <Button Disabled="@(!GameConfigIsValid)"
+                            Color="@ButtonColor.Primary" @onclick="StartNewGame">
+                        Neues Spiel starten
+                    </Button>
 
-            <Button
-                Color="@ButtonColor.Primary" @onclick="LoadLastGame">
-                Laden
-            </Button>
+                    <Button
+                        Color="@ButtonColor.Primary" @onclick="LoadLastGame">
+                        Bestehendes Spiel Laden
+                    </Button>
+                </CardBody>
+            </Card>
         </div>
     </div>
 
-    <EditPlayers Players="@Players"></EditPlayers>
+    <EditPlayers OnValidationChanged="HandleValidationChanged" Players="@Players"></EditPlayers>
 </div>

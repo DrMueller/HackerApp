@@ -6,19 +6,35 @@ namespace HackerApp.Client.Areas.NewGame.Components
     public partial class EditPlayers
     {
         [Parameter]
+        public EventCallback<bool> OnValidationChanged { get; set; }
+
+        [Parameter]
         public required IList<NewPlayer> Players { get; set; }
 
-        private void HandleAddPlayerClicked()
+        private async Task AddPlayerAsync()
         {
             Players.Add(new NewPlayer
             {
                 Name = string.Empty
             });
+
+            await ValidateAsync();
         }
 
-        private void RemovePlayer(NewPlayer obj)
+        private async Task RemovePlayerAsync(NewPlayer obj)
         {
             Players.Remove(obj);
+            await ValidateAsync();
+        }
+
+        private async Task ValidateAsync()
+        {
+            var validation = Players.Any() &&
+                             Players.All(f => !string.IsNullOrEmpty(f.Name))
+                             &&
+                             Players.Select(f => f.Name).Distinct().Count() == Players.Count;
+
+            await OnValidationChanged.InvokeAsync(validation);
         }
     }
 }

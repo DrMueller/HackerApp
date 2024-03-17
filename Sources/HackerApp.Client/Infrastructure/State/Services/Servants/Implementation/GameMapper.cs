@@ -12,8 +12,10 @@ namespace HackerApp.Client.Infrastructure.State.Services.Servants.Implementation
         {
             var players = dto.Players.Select(f => new Player(f.Name)).ToList();
 
+            var sortedRounds = dto.GameRounds.OrderBy(f => f.RoundNumber).ToList();
+            
             var rounds = new List<GameRound>();
-            foreach (var roundDto in dto.GameRounds)
+            foreach (var roundDto in sortedRounds)
             {
                 var round = MapGameRound(
                     roundDto,
@@ -33,7 +35,10 @@ namespace HackerApp.Client.Infrastructure.State.Services.Servants.Implementation
 
         private static GameRound MapGameRound(GameRoundDto dto, IReadOnlyCollection<Player> players, GameRound? prevRound)
         {
+            var roundNumber = prevRound?.RoundNumber + 1 ?? 0;
+
             return new GameRound(
+                roundNumber,
                 dto.RoundEinsatz,
                 dto.PlayerGameRounds.Select(f => MapPlayerGameRound(f, players)).ToList(),
                 prevRound);

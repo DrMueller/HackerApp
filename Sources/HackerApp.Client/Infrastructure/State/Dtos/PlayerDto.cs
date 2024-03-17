@@ -5,6 +5,6 @@ namespace HackerApp.Client.Infrastructure.State.Dtos
     [PublicAPI]
     public class PlayerDto
     {
-        public required string Name { get; set; }
+        public required string Name { get; init; }
     }
 }

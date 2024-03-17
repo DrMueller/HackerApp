@@ -9,11 +9,9 @@ namespace HackerApp.Client.Areas.NewGame.Components
         public required IList<NewPlayer>? Players { get; set; }
 
         [Parameter]
-        public required EventCallback<NewPlayer> RemovePlayerRequired { get; set; }
+        public required EventCallback PlayerNameChanged { get; set; }
 
-        private async Task RemovePlayer(NewPlayer player)
-        {
-            await RemovePlayerRequired.InvokeAsync(player);
-        }
+        [Parameter]
+        public required EventCallback<NewPlayer> RemovePlayerRequired { get; set; }
     }
 }

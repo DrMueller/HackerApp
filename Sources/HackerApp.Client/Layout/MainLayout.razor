@@ -1,17 +1,19 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
+<div class="bb-page">
     <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">Hacky App</a>
-            <button id="installButton" style="display:none;">Install App</button>
+        <div class="bb-top-row px-4 d-flex justify-content-end">
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
         </div>
 
         <article class="content px-4">
-            @Body
+            <div class="py-2">
+                @Body
+            </div>
         </article>
     </main>
 </div>
+
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.
