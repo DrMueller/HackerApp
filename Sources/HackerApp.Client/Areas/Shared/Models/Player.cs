@@ -16,7 +16,12 @@
 
             var earnings = roundsToCount.Sum(f => f.CalculcateEarnings(this));
 
-            return einsaetze + earnings;
+            var penalties = roundsToCount
+                .SelectMany(f => f.PlayerGameRounds)
+                .Where(f => f.Player.Name == Name)
+                .Sum(f => f.RoundPenalty) * -1;
+
+            return einsaetze + earnings + penalties;
         }
     }
 }

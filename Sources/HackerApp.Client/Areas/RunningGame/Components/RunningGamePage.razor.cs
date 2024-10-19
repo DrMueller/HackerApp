@@ -1,5 +1,6 @@
 ﻿using HackerApp.Client.Areas.NewGame.Components;
 using HackerApp.Client.Areas.Shared.Models;
+using HackerApp.Client.Areas.Shared.Models.PlayerGameRounds;
 using HackerApp.Client.Infrastructure.State.Services;
 using Microsoft.AspNetCore.Components;
 
@@ -8,6 +9,8 @@ namespace HackerApp.Client.Areas.RunningGame.Components
     public partial class RunningGamePage
     {
         public const string Path = "/games/run";
+
+        private readonly IList<PlayerPenalty> _playerPenalties = new List<PlayerPenalty>();
 
         [Inject]
         public required IGameState GameState { get; set; }
@@ -22,11 +25,8 @@ namespace HackerApp.Client.Areas.RunningGame.Components
 
         private Game? Game { get; set; }
 
-        private IList<PlayerPenalty> _playerPenalties;
-
         protected override async Task OnInitializedAsync()
         {
-            _playerPenalties = new List<PlayerPenalty>();
             Game = await GameState.LoadAsync();
         }
 
@@ -37,14 +37,20 @@ namespace HackerApp.Client.Areas.RunningGame.Components
             await GameState.PersistAsync(Game);
         }
 
+        private void AddPlayerPenalty(PlayerPenalty pen)
+        {
+            var existingPenalty = _playerPenalties.SingleOrDefault(f => f.PlayerName == pen.PlayerName);
+            if (existingPenalty != null)
+            {
+                _playerPenalties.Remove(existingPenalty);
+            }
+
+            _playerPenalties.Add(pen);
+        }
+
         private void CreateNewGame()
         {
             Navigator.NavigateTo(NewGamePage.Path);
-        }
-
-        private void AddPlayerPenalty(PlayerPenalty pen)
-        {
-            _playerPenalties.Add(pen);
         }
     }
 }

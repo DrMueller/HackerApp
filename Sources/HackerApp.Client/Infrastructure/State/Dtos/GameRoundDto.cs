@@ -1,4 +1,5 @@
-﻿using HackerApp.Client.Infrastructure.State.Dtos.PlayerGameRounds;
+﻿using HackerApp.Client.Areas.Shared.Models;
+using HackerApp.Client.Infrastructure.State.Dtos.PlayerGameRounds;
 using JetBrains.Annotations;
 
 namespace HackerApp.Client.Infrastructure.State.Dtos
@@ -11,5 +12,15 @@ namespace HackerApp.Client.Infrastructure.State.Dtos
         public required List<PlayerGameRoundDto> PlayerGameRounds { get; init; }
 
         public double RoundEinsatz { get; init; }
+    
+        public static GameRoundDto MapFromModel(GameRound model)
+        {
+            return new GameRoundDto
+            {
+                PlayerGameRounds = model.PlayerGameRounds.Select(PlayerGameRoundDto.MapFromModel).ToList(),
+                RoundNumber = model.RoundNumber,
+                RoundEinsatz = model.RoundEinsatz
+            };
+        }
     }
 }

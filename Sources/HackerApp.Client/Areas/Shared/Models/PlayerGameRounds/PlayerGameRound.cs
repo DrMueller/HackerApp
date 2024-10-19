@@ -5,11 +5,23 @@
         GameRoundPlayerResult result,
         PlayerPenalty? penalty)
     {
-        private readonly PlayerPenalty? _penalty = penalty;
+        public PlayerPenalty? Penalty { get; } = penalty;
         public Player Player { get; } = player;
         public GameRoundPlayerResult Result { get; } = result;
+        public double RoundPenalty => Penalty?.PenaltyValue ?? 0;
 
-        public double RoundPenalty => _penalty?.PenaltyValue ?? 0;
+        public string RoundPenaltyDescription
+        {
+            get
+            {
+                if (Penalty == null)
+                {
+                    return string.Empty;
+                }
+
+                return $"({Penalty.PenaltyValue})";
+            }
+        }
 
         public double CalculateLossProfit(
             RoundPot roundPot,

@@ -70,7 +70,7 @@ namespace HackerApp.Client.Areas.Shared.Models
             var playerGameRounds = players.Select(player =>
             {
                 var result = new GameRoundPlayerResult();
-                var penalty = penalties.SingleOrDefault(f => f.PlayerName == f.PlayerName);
+                var penalty = penalties.SingleOrDefault(f => player.Name == f.PlayerName);
 
                 return new PlayerGameRound(
                     player,

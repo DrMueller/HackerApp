@@ -1,12 +1,11 @@
-﻿using AutoMapper;
-using HackerApp.Client.Areas.Shared.Models;
+﻿using HackerApp.Client.Areas.Shared.Models;
 using HackerApp.Client.Areas.Shared.Models.PlayerGameRounds;
 using HackerApp.Client.Infrastructure.State.Dtos;
 using HackerApp.Client.Infrastructure.State.Dtos.PlayerGameRounds;
 
 namespace HackerApp.Client.Infrastructure.State.Services.Servants.Implementation
 {
-    public class GameMapper(IMapper mapper) : IGameMapper
+    public class GameMapper : IGameMapper
     {
         public Game Map(GameDto dto)
         {
@@ -30,7 +29,7 @@ namespace HackerApp.Client.Infrastructure.State.Services.Servants.Implementation
 
         public GameDto Map(Game game)
         {
-            return mapper.Map<GameDto>(game);
+            return GameDto.MapFromModel(game);
         }
 
         private static GameRound MapGameRound(GameRoundDto dto, IReadOnlyCollection<Player> players, GameRound? prevRound)
@@ -53,9 +52,14 @@ namespace HackerApp.Client.Infrastructure.State.Services.Servants.Implementation
                 ResultType = dto.Result.ResultType
             };
 
-            var penalty = new PlayerPenalty(
-                dto.Penalty.PlayerName,
-                dto.Penalty.PenaltyValue);
+            PlayerPenalty? penalty = null;
+
+            if (dto.Penalty != null)
+            {
+                penalty = new PlayerPenalty(
+                    dto.Penalty.PlayerName,
+                    dto.Penalty.PenaltyValue);
+            }
 
             return new PlayerGameRound(player, res, penalty);
         }

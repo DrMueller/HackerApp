@@ -1,4 +1,6 @@
-﻿namespace HackerApp.Client.Areas.Shared.Models
+﻿using HackerApp.Client.Areas.Shared.Models.PlayerGameRounds;
+
+namespace HackerApp.Client.Areas.Shared.Models
 {
     public class Game(
         IReadOnlyCollection<Player> players,

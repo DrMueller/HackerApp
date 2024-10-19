@@ -1,3 +1,13 @@
-﻿<BlazorBootstrap.NumberInput @bind-Value="PenaltyValue">
-</BlazorBootstrap.NumberInput>
-<BlazorBootstrap.Button @onclick="SavePenaltyAsync">OK</BlazorBootstrap.Button>
+﻿
+<Modal @ref="ModalRef" Title="Busse">
+    <BodyTemplate>
+        <div class="row">
+            <BlazorBootstrap.NumberInput @bind-Value="PenaltyValue">
+            </BlazorBootstrap.NumberInput>
+        </div>    </BodyTemplate>
+    <FooterTemplate>
+        <BlazorBootstrap.Button @onclick="SavePenaltyAsync">OK</BlazorBootstrap.Button>
+
+        <BlazorBootstrap.Button @onclick="CancelAsync">Abbrechen</BlazorBootstrap.Button>
+    </FooterTemplate>
+</Modal>

@@ -14,7 +14,6 @@ namespace HackerApp.Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.Services.AddBlazorBootstrap();
             builder.Services.AddBlazoredLocalStorage();
-            builder.Services.AddAutoMapper(typeof(StateProfile).Assembly);
 
             builder.Services.AddScoped<IGameState, GameState>();
             builder.Services.AddSingleton<IGameMapper, GameMapper>();

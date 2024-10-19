@@ -1,4 +1,5 @@
 ﻿let deferredPrompt;
+// ReSharper disable once Html.IdNotResolved
 const installButton = document.getElementById("installButton"); // Assume you have an install button in your HTML
 
 // ReSharper disable once Html.EventNotResolved

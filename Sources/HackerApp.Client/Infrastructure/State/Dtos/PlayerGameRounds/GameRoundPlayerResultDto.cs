@@ -7,5 +7,13 @@ namespace HackerApp.Client.Infrastructure.State.Dtos.PlayerGameRounds
     public class GameRoundPlayerResultDto
     {
         public GameRoundPlayerResultType ResultType { get; init; }
+    
+        public static GameRoundPlayerResultDto MapFromModel(GameRoundPlayerResult model)
+        {
+            return new GameRoundPlayerResultDto
+            {
+                ResultType = model.ResultType
+            };
+        }
     }
 }

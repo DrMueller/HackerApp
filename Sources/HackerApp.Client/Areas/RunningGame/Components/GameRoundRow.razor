@@ -3,6 +3,8 @@
     <td>
         @GameRound.CalculcateEarnings(res.Player).ToString("N2")
 
+        @res.RoundPenaltyDescription
+
         <ResultTypeInput @bind-ResultType="@res.Result.ResultType"></ResultTypeInput>
     </td>
 }
