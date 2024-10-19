@@ -22,20 +22,29 @@ namespace HackerApp.Client.Areas.RunningGame.Components
 
         private Game? Game { get; set; }
 
+        private IList<PlayerPenalty> _playerPenalties;
+
         protected override async Task OnInitializedAsync()
         {
+            _playerPenalties = new List<PlayerPenalty>();
             Game = await GameState.LoadAsync();
         }
 
         private async Task AddNewRoundAsync()
         {
-            Game!.AddNewRound(Einsatz);
+            Game!.AddNewRound(Einsatz, _playerPenalties.ToList());
+            _playerPenalties.Clear();
             await GameState.PersistAsync(Game);
         }
 
         private void CreateNewGame()
         {
             Navigator.NavigateTo(NewGamePage.Path);
+        }
+
+        private void AddPlayerPenalty(PlayerPenalty pen)
+        {
+            _playerPenalties.Add(pen);
         }
     }
 }

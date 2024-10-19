@@ -2,10 +2,14 @@
 {
     public class PlayerGameRound(
         Player player,
-        GameRoundPlayerResult result)
+        GameRoundPlayerResult result,
+        PlayerPenalty? penalty)
     {
+        private readonly PlayerPenalty? _penalty = penalty;
         public Player Player { get; } = player;
         public GameRoundPlayerResult Result { get; } = result;
+
+        public double RoundPenalty => _penalty?.PenaltyValue ?? 0;
 
         public double CalculateLossProfit(
             RoundPot roundPot,

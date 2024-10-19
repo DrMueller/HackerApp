@@ -13,9 +13,15 @@
 
         public IReadOnlyCollection<Player> Players { get; } = players;
 
-        public void AddNewRound(double roundEinsatz)
+        public void AddNewRound(
+            double roundEinsatz,
+            IReadOnlyCollection<PlayerPenalty> penalties)
         {
-            rounds.Insert(0, GameRound.Create(roundEinsatz, Players, rounds.FirstOrDefault()));
+            rounds.Insert(0, GameRound.Create(
+                roundEinsatz, 
+                Players, 
+                rounds.FirstOrDefault(),
+                penalties));
         }
     }
 }

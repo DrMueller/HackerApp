@@ -13,7 +13,7 @@ namespace HackerApp.Client.Infrastructure.State.Services.Servants.Implementation
             var players = dto.Players.Select(f => new Player(f.Name)).ToList();
 
             var sortedRounds = dto.GameRounds.OrderBy(f => f.RoundNumber).ToList();
-            
+
             var rounds = new List<GameRound>();
             foreach (var roundDto in sortedRounds)
             {
@@ -53,7 +53,11 @@ namespace HackerApp.Client.Infrastructure.State.Services.Servants.Implementation
                 ResultType = dto.Result.ResultType
             };
 
-            return new PlayerGameRound(player, res);
+            var penalty = new PlayerPenalty(
+                dto.Penalty.PlayerName,
+                dto.Penalty.PenaltyValue);
+
+            return new PlayerGameRound(player, res, penalty);
         }
     }
 }

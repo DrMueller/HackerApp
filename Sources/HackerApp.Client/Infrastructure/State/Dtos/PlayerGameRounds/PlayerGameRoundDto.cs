@@ -7,5 +7,6 @@ namespace HackerApp.Client.Infrastructure.State.Dtos.PlayerGameRounds
     {
         public required PlayerDto Player { get; init; }
         public required GameRoundPlayerResultDto Result { get; init; }
+        public required PlayerPenaltyDto Penalty { get; init; }
     }
 }
