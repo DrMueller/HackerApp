@@ -24,8 +24,8 @@ namespace HackerApp.Client.UnitTests.Areas.Shared.Models
             var actualPayments = sut.CalculatePayments();
 
             // Assert
-            actualPayments.Should().Contain(p => p.From.Name == "Player2" && p.To.Name == "Player1" && p.Amount == 10);
-            actualPayments.Should().Contain(p => p.From.Name == "Player4" && p.To.Name == "Player3" && p.Amount == 20);
+            actualPayments.Should().ContainSingle(p => p.From.Name == "Player2" && p.To.Name == "Player1" && Math.Abs(p.Amount - 10) == 0);
+            actualPayments.Should().ContainSingle(p => p.From.Name == "Player4" && p.To.Name == "Player3" && Math.Abs(p.Amount - 20) == 0);
         }
 
         [Fact]
@@ -46,9 +46,9 @@ namespace HackerApp.Client.UnitTests.Areas.Shared.Models
             var actualPayments = sut.CalculatePayments();
 
             // Assert
-            actualPayments.Should().Contain(p => p.From.Name == "Player1" && p.To.Name == "Player2" && p.Amount == 30.5);
-            actualPayments.Should().Contain(p => p.From.Name == "Player1" && p.To.Name == "Player3" && p.Amount == 20.5);
-            actualPayments.Should().Contain(p => p.From.Name == "Player1" && p.To.Name == "Player4" && p.Amount == 49);
+            actualPayments.Should().ContainSingle(p => p.From.Name == "Player1" && p.To.Name == "Player2" && Math.Abs(p.Amount - 30.5) == 0);
+            actualPayments.Should().ContainSingle(p => p.From.Name == "Player1" && p.To.Name == "Player3" && Math.Abs(p.Amount - 20.5) == 0);
+            actualPayments.Should().ContainSingle(p => p.From.Name == "Player1" && p.To.Name == "Player4" && Math.Abs(p.Amount - 49) == 0);
         }
 
         [Fact]
@@ -68,8 +68,8 @@ namespace HackerApp.Client.UnitTests.Areas.Shared.Models
             var actualPayments = sut.CalculatePayments();
 
             // Assert
-            actualPayments.Should().Contain(p => p.From.Name == "Player1" && p.To.Name == "Player2" && p.Amount == 19.5);
-            actualPayments.Should().Contain(p => p.From.Name == "Player1" && p.To.Name == "Player3" && p.Amount == 0.5);
+            actualPayments.Should().ContainSingle(p => p.From.Name == "Player1" && p.To.Name == "Player2" && Math.Abs(p.Amount - 19.5) == 0);
+            actualPayments.Should().ContainSingle(p => p.From.Name == "Player1" && p.To.Name == "Player3" && Math.Abs(p.Amount - 0.5) == 0);
         }
 
         [Fact]

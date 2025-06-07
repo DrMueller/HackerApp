@@ -28,32 +28,40 @@ jobs:
           projects: "Sources/**/*.csproj"
           arguments: '/p:TreatWarningsAsErrors="true" --configuration $(BuildConfiguration)'
 
+      - task: DotNetCoreCLI@2
+        displayName: Run Tests
+        inputs:
+          command: test
+          projects: "Backend/Sources/Testing/**/*Tests.csproj"
+          arguments: "--configuration --configuration $(BuildConfiguration)"
+
   - job: "RunResharper"
     displayName: "Run ReSharper analysis"
     pool:
       name: Azure Pipelines
       vmImage: windows-latest
     steps:
-      - task: DotNetCoreCLI@2
-        displayName: "Restore project NuGets"
-        inputs:
-          command: restore
-          projects: "Sources/**/*.csproj"
-      - task: Cache@2
-        displayName: Cache ReSharperCLT
-        inputs:
-          key: ResharperCLT
-          path: $(Build.SourcesDirectory)/Lib/Resharper
-          cacheHitVar: ReSharperCLTCacheRestored
-      - task: NuGetCommand@2
-        displayName: "Restore ReSharper CLT NuGet"
-        inputs:
-          command: custom
-          arguments: "install JetBrains.ReSharper.CommandLineTools -source https://api.nuget.org/v3/index.json -Version 2023.3.3 -OutputDirectory $(Build.SourcesDirectory)/Lib/Resharper"
-        condition: ne(variables.ReSharperCLTCacheRestored, 'true')
-      - task: alanwales.resharper-code-analysis.custom-build-task.ResharperCli@2
-        displayName: "Run ReSharper analysis"
-        inputs:
-          solutionOrProjectPath: HackerApp.sln
-          commandLineInterfacePath: $(Build.SourcesDirectory)/Lib/Resharper/JetBrains.ReSharper.CommandLineTools.2023.3.3/tools
-          additionalArguments: "--no-build"
+    - task: petersendev.dotnet-global-tool-installer.DotnetGlobalToolInstaller.DotnetGlobalToolInstaller@0
+      displayName: '.NET Core Global Tool'
+      inputs:
+        name: jetbrains.resharper.globaltools
+
+    - task: DrMueller2.ReSharperRunner.ReSharperRunnerTask.ReSharperRunnerTask@2
+      displayName: Run ReSharper analysis
+      inputs:
+        solutionPath: HackerApp.sln
+
+  - job: "AnalyzeLicences"
+    displayName: "Run license analysis"
+    pool:
+      name: Azure Pipelines
+      vmImage: windows-latest
+    steps:
+    - task: petersendev.dotnet-global-tool-installer.DotnetGlobalToolInstaller.DotnetGlobalToolInstaller@0
+      displayName: '.NET Core Global Tool'
+      inputs:
+        name: nugetlicencebuddy
+        versionSpec: 1.0.17
+
+    - script: 'nugetlicencebuddy -i -s $(Build.SourcesDirectory) -e .*(Microsoft^|System).* -o $(Build.SourcesDirectory)\Sources\Application\bin\Debug -m'
+      displayName: 'Run Licence Buddy'
