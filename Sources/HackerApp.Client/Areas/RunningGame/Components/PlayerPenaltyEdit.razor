@@ -1,10 +1,15 @@
-﻿
-<Modal @ref="ModalRef" Title="Busse">
+﻿<Modal @ref="ModalRef" Title="Busse">
     <BodyTemplate>
         <div class="row">
-            <BlazorBootstrap.NumberInput @bind-Value="PenaltyValue">
-            </BlazorBootstrap.NumberInput>
-        </div>    </BodyTemplate>
+            <NumberInput @bind-Value="PenaltyValue">
+            </NumberInput>
+        </div>
+
+        <div class="row">
+            <CheckboxInput Label="Busse nächste Runde anrechnen" @bind-value="ApplyPenaltyNextRound" />
+
+        </div>
+    </BodyTemplate>
     <FooterTemplate>
         <BlazorBootstrap.Button @onclick="SavePenaltyAsync">OK</BlazorBootstrap.Button>
 

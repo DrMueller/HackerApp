@@ -1,5 +1,4 @@
-﻿using HackerApp.Client.Areas.NewGame.Components;
-using HackerApp.Client.Areas.Shared.Models;
+﻿using HackerApp.Client.Areas.Shared.Models;
 using HackerApp.Client.Areas.Shared.Models.PlayerGameRounds;
 using HackerApp.Client.Infrastructure.State.Services;
 using Microsoft.AspNetCore.Components;
@@ -24,6 +23,7 @@ namespace HackerApp.Client.Areas.RunningGame.Components
         private double Einsatz { get; set; } = 0.50;
 
         private Game? Game { get; set; }
+        private PlayerPayouts PlayerPayoutsRef { get; set; } = null!;
 
         protected override async Task OnInitializedAsync()
         {
@@ -39,18 +39,26 @@ namespace HackerApp.Client.Areas.RunningGame.Components
 
         private void AddPlayerPenalty(PlayerPenalty pen)
         {
-            var existingPenalty = _playerPenalties.SingleOrDefault(f => f.PlayerName == pen.PlayerName);
-            if (existingPenalty != null)
+            if (pen.ApplyPenaltyNextRound)
             {
-                _playerPenalties.Remove(existingPenalty);
-            }
+                var existingPenalty = _playerPenalties.SingleOrDefault(f => f.PlayerName == pen.PlayerName);
+                if (existingPenalty != null)
+                {
+                    _playerPenalties.Remove(existingPenalty);
+                }
 
-            _playerPenalties.Add(pen);
+                _playerPenalties.Add(pen);
+            }
+            else
+            {
+                Game!.CurrentRound.AddPenalty(pen);
+            }
         }
 
-        private void CreateNewGame()
+        private async Task CalculatePayoutAsync()
         {
-            Navigator.NavigateTo(NewGamePage.Path);
+            var payouts = Game!.CalculatePayouts();
+            await PlayerPayoutsRef.ShowAsync(payouts);
         }
     }
 }

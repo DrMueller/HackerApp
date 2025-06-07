@@ -6,7 +6,7 @@
         <InputText type="text" id="name" class="form-control" @bind-Value:set="SetPlayerNameAsync" @bind-Value:get="@Player.Name"/>
     </div>
     <div class="col-auto">
-        <Button Size="@Size.Small" Color="@ButtonColor.Secondary" @onclick="() => RemovePlayerRequired.InvokeAsync(Player)">
+        <Button Size="@ButtonSize.Small" Color="@ButtonColor.Secondary" @onclick="() => RemovePlayerRequired.InvokeAsync(Player)">
             -
         </Button>
     </div>

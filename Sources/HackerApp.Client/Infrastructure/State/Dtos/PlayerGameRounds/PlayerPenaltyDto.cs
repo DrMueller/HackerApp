@@ -8,6 +8,7 @@ namespace HackerApp.Client.Infrastructure.State.Dtos.PlayerGameRounds
     {
         public double PenaltyValue { get; init; }
         public required string PlayerName { get; init; }
+        public bool ApplyPenaltyNextRound { get; init; }
 
         public static PlayerPenaltyDto? MapFromModel(PlayerPenalty? model)
         {
@@ -19,7 +20,8 @@ namespace HackerApp.Client.Infrastructure.State.Dtos.PlayerGameRounds
             return new PlayerPenaltyDto
             {
                 PlayerName = model.PlayerName,
-                PenaltyValue = model.PenaltyValue
+                PenaltyValue = model.PenaltyValue,
+                ApplyPenaltyNextRound = model.ApplyPenaltyNextRound
             };
         }
     }

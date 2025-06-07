@@ -9,8 +9,12 @@ namespace HackerApp.Client.Areas.RunningGame.Components
         [Parameter]
         public required Game Game { get; set; }
 
+        public int ItemsPerPage { get; set; } = 20;
+
         [Parameter]
         public required EventCallback<PlayerPenalty> OnPenaltyAdded { get; set; }
+
+        private IEnumerable<GameRound> GameRounds => ItemsPerPage == -1 ? Game.GameRounds : Game.GameRounds.Take(ItemsPerPage);
 
         private PlayerPenaltyEdit PlayerPenaltyEditRef { get; set; } = null!;
 

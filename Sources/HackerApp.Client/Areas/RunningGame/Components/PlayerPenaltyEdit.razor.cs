@@ -6,14 +6,15 @@ namespace HackerApp.Client.Areas.RunningGame.Components
 {
     public partial class PlayerPenaltyEdit
     {
-        private Modal ModalRef { get; set; } = default!;
+        private string _playerName = default!;
 
         [Parameter]
         public required EventCallback<PlayerPenalty> OnNewPenalty { get; set; }
 
-        private double PenaltyValue { get; set; }
+        private bool ApplyPenaltyNextRound { get; set; }
+        private Modal ModalRef { get; set; } = default!;
 
-        private string _playerName = default!;
+        private double PenaltyValue { get; set; }
 
         public async Task ShowAsync(string playerName)
         {
@@ -29,8 +30,10 @@ namespace HackerApp.Client.Areas.RunningGame.Components
         private async Task SavePenaltyAsync()
         {
             await OnNewPenalty.InvokeAsync(
-                new PlayerPenalty(_playerName,
-                    PenaltyValue));
+                new PlayerPenalty(
+                    _playerName,
+                    PenaltyValue,
+                    ApplyPenaltyNextRound));
 
             await ModalRef.HideAsync();
         }

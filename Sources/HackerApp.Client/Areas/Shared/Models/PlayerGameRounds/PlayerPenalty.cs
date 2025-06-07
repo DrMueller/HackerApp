@@ -2,5 +2,6 @@
 {
     public record PlayerPenalty(
         string PlayerName,
-        double PenaltyValue);
+        double PenaltyValue,
+        bool ApplyPenaltyNextRound);
 }

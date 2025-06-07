@@ -58,7 +58,8 @@ namespace HackerApp.Client.Infrastructure.State.Services.Servants.Implementation
             {
                 penalty = new PlayerPenalty(
                     dto.Penalty.PlayerName,
-                    dto.Penalty.PenaltyValue);
+                    dto.Penalty.PenaltyValue,
+                    dto.Penalty.ApplyPenaltyNextRound);
             }
 
             return new PlayerGameRound(player, res, penalty);

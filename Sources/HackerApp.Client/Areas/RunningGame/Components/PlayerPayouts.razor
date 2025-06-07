@@ -1,0 +1,16 @@
+﻿<Modal @ref="ModalRef" Title="Auszahlungen">
+    <BodyTemplate>
+        <ul>
+            @foreach (var payout in Payouts)
+            {
+                <li>
+                    @payout.PaymentDescription
+                </li>
+            }
+        </ul>
+
+    </BodyTemplate>
+    <FooterTemplate>
+        <BlazorBootstrap.Button @onclick="CancelAsync">OK</BlazorBootstrap.Button>
+    </FooterTemplate>
+</Modal>

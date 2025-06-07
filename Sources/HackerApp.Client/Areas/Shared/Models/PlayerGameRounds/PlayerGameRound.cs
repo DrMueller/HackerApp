@@ -5,7 +5,7 @@
         GameRoundPlayerResult result,
         PlayerPenalty? penalty)
     {
-        public PlayerPenalty? Penalty { get; } = penalty;
+        public PlayerPenalty? Penalty { get; private set; } = penalty;
         public Player Player { get; } = player;
         public GameRoundPlayerResult Result { get; } = result;
         public double RoundPenalty => Penalty?.PenaltyValue ?? 0;
@@ -41,6 +41,11 @@
             }
 
             throw new Exception("Tra");
+        }
+
+        public void AddPenalty(PlayerPenalty penalty)
+        {
+            Penalty = penalty;
         }
 
         private double CalculateEarnings(

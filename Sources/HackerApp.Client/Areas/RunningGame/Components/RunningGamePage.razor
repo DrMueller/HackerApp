@@ -1,14 +1,21 @@
-﻿@attribute [Route(Path)]
+﻿@using HackerApp.Client.Shared.Zoom
+@attribute [Route(Path)]
+
+<PlayerPayouts @ref="PlayerPayoutsRef"></PlayerPayouts>
+
+
 @if (Game != null)
 {
     <div class="container">
+        <BrowserZoom></BrowserZoom>
+
         <div class="d-flex flex-row">
             <div>
                 <Button Color="@ButtonColor.Primary" @onclick="AddNewRoundAsync">Neue Runde</Button>
                 <input type="number" @bind-value="@Einsatz"/>
             </div>
             <div class="ms-auto">
-                <Button Color="@ButtonColor.Primary" @onclick="CreateNewGame">Neues Spiel</Button>
+                <Button Color="@ButtonColor.Primary" @onclick="CalculatePayoutAsync">Auszahlung</Button>
             </div>
         </div>
 

@@ -87,6 +87,13 @@ namespace HackerApp.Client.Areas.Shared.Models
                 prevRound);
         }
 
+        public void AddPenalty(PlayerPenalty pen)
+        {
+            PlayerGameRounds
+                .Single(f => f.Player.Name == pen.PlayerName)
+                .AddPenalty(pen);
+        }
+
         public double CalculcateEarnings(Player player)
         {
             var playerGameRound = PlayerGameRounds.Single(f => f.Player.Name == player.Name);
