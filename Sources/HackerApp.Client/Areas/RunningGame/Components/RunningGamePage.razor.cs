@@ -14,9 +14,6 @@ namespace HackerApp.Client.Areas.RunningGame.Components
         [Inject]
         public required IGameState GameState { get; set; }
 
-        [Inject]
-        public required NavigationManager Navigator { get; set; }
-
         [Parameter]
         public required IReadOnlyCollection<Player> Players { get; set; }
 

@@ -9,7 +9,7 @@ namespace HackerApp.Client.Areas.RunningGame.Components
         [Parameter]
         public required Game Game { get; set; }
 
-        public int ItemsPerPage { get; set; } = 20;
+        private int ItemsPerPage { get; set; } = 20;
 
         [Parameter]
         public required EventCallback<PlayerPenalty> OnPenaltyAdded { get; set; }
