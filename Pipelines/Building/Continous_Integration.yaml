@@ -63,5 +63,5 @@ jobs:
         name: nugetlicencebuddy
         versionSpec: 1.0.17
 
-    - script: 'nugetlicencebuddy -i -s $(Build.SourcesDirectory) -e .*(Microsoft^|System).* -o $(Build.SourcesDirectory)\Sources\Application\bin\Debug -m'
+    - script: 'nugetlicencebuddy "-i -s $(Build.SourcesDirectory) -e .*(Microsoft^|System).* -o $(Build.SourcesDirectory)\Sources\HackerApp\bin\Debug\net8.0 -m"'
       displayName: 'Run Licence Buddy'
