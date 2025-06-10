@@ -106,7 +106,7 @@ namespace HackerApp.Client.Areas.Shared.Models
                 winnerCount += 2;
             }
 
-            return playerGameRound.CalculateLossProfit(RoundPot, winnerCount);
+            return playerGameRound.CalculateLossProfit(RoundPot, RoundEinsatz, winnerCount);
         }
     }
 }
