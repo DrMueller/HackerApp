@@ -1,5 +1,0 @@
-NugetName             | NugetVersion | LicenceName | LicenceUrl                           
---------------------- | ------------ | ----------- | -------------------------------------
-Blazor.Bootstrap      | 3.3.1        | Apache 2    | https://licenses.nuget.org/Apache-2.0
-Blazored.LocalStorage | 4.5.0        | MIT         | https://licenses.nuget.org/MIT       
-JetBrains.Annotations | 2023.3.0     | MIT         | https://licenses.nuget.org/MIT
