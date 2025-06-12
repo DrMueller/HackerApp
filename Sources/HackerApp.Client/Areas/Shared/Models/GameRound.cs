@@ -97,16 +97,10 @@ namespace HackerApp.Client.Areas.Shared.Models
         public double CalculcateEarnings(Player player)
         {
             var playerGameRound = PlayerGameRounds.Single(f => f.Player.Name == player.Name);
-            var mitgegangenGewonnenCount = PlayerGameRounds.Count(f => f.Result.ResultType == GameRoundPlayerResultType.MitgegangenGewonnen);
-            var hasHackerWinner = PlayerGameRounds.Any(f => f.Result.ResultType == GameRoundPlayerResultType.HackedGewonnen);
 
-            var winnerCount = mitgegangenGewonnenCount;
-            if (hasHackerWinner)
-            {
-                winnerCount += 2;
-            }
+            var winnerCount = PlayerGameRounds.Count(f => f.Result.HasWon);
 
-            return playerGameRound.CalculateLossProfit(RoundPot, RoundEinsatz, winnerCount);
+            return playerGameRound.CalculateLossProfit(RoundPot, winnerCount);
         }
     }
 }

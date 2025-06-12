@@ -30,7 +30,7 @@ jobs:
         displayName: Run Tests
         inputs:
           command: test
-          projects: "Backend/Sources/Testing/**/*Tests.csproj"
+          projects: "Sources/**/*Tests.csproj"
           arguments: "--configuration --configuration $(BuildConfiguration)"
       - task: petersendev.dotnet-global-tool-installer.DotnetGlobalToolInstaller.DotnetGlobalToolInstaller@0
         displayName: '.NET Core Global Tool'

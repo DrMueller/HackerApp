@@ -1,8 +1,7 @@
-﻿@using HackerApp.Client.Infrastructure
-<PlayerPenaltyEdit 
-@ref="PlayerPenaltyEditRef"
-OnNewPenalty="OnPenaltyAdded"
-></PlayerPenaltyEdit>
+﻿<PlayerPenaltyEdit
+    @ref="PlayerPenaltyEditRef"
+    OnNewPenalty="OnPenaltyAdded">
+</PlayerPenaltyEdit>
 
 <div class="d-flex flex-column">
     <div class="mt-2">
@@ -20,14 +19,18 @@ OnNewPenalty="OnPenaltyAdded"
                 @foreach (var player in Game.Players)
                 {
                     <th>
-                            @player.Name (@player.CalculateOverallLossProfit(Game.GameRounds).RoundToNext50Rappen().ToString("N2"))
+                        @player.Name (@player.CalculateOverallLossProfit(Game.GameRounds).ToString("N2"))
                         <BlazorBootstrap.Button Color="ButtonColor.Primary" @onclick="() => ShowPlayerPenalty(player.Name)">
                             +
                         </BlazorBootstrap.Button>
                     </th>
                 }
-                <th><b>Pot</b></th>
-                <th><b>Einsatz</b></th>
+                <th>
+                    <b>Pot</b>
+                </th>
+                <th>
+                    <b>Einsatz</b>
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -42,4 +45,3 @@ OnNewPenalty="OnPenaltyAdded"
     </div>
 
 </div>
-

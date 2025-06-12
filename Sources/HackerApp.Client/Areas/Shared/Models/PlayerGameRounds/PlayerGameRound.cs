@@ -32,7 +32,6 @@ namespace HackerApp.Client.Areas.Shared.Models.PlayerGameRounds
 
         public double CalculateLossProfit(
             RoundPot roundPot,
-            double roundEinsatz,
             int amountOfWinners)
         {
             switch (Result.ResultType)
@@ -40,39 +39,39 @@ namespace HackerApp.Client.Areas.Shared.Models.PlayerGameRounds
                 case GameRoundPlayerResultType.None:
                     return 0;
                 case GameRoundPlayerResultType.HackedVerloren:
-                    return (roundPot.Value * 2 * -1).RoundToNext50Rappen();
+                    return (roundPot.Value * 2 * -1).RoundTwoDigits();
                 case GameRoundPlayerResultType.MitgegangenVerloren:
-                    return (roundPot.Value * -1).RoundToNext50Rappen();
+                    return (roundPot.Value * -1).RoundTwoDigits();
                 case GameRoundPlayerResultType.HackedGewonnen:
+                    return CalculateHackerEarnings(roundPot, amountOfWinners);
                 case GameRoundPlayerResultType.MitgegangenGewonnen:
-                    return CalculateEarnings(roundPot, roundEinsatz, amountOfWinners);
+                    return CalculateMitgegangenEarnings(roundPot, amountOfWinners);
             }
 
             throw new Exception("Tra");
         }
 
-        private double CalculateEarnings(
+        private static double CalculateHackerEarnings(
             RoundPot roundPot,
-            double roundEinsatz,
             int amountOfWinners)
         {
-            if (Result.ResultType == GameRoundPlayerResultType.HackedGewonnen)
+            if (amountOfWinners == 1)
             {
-                if (amountOfWinners == 1)
-                {
-                    return roundPot.Value.RoundToNext50Rappen();
-                }
+                return roundPot.Value.RoundTwoDigits();
+            }
 
-                var twoThirdsOfPot = roundPot.Value / 3 * 2;
+            var twoThirdsOfPot = roundPot.Value / 3 * 2;
 
-                // In minpots abrunden
-                var requiredMinPot = roundEinsatz * (amountOfWinners - 1);
-                if (twoThirdsOfPot > requiredMinPot)
-                {
-                    return roundPot.Value - requiredMinPot.RoundToNext50Rappen();
-                }
+            return twoThirdsOfPot.RoundTwoDigits();
+        }
 
-                return twoThirdsOfPot.RoundToNext50Rappen();
+        private static double CalculateMitgegangenEarnings(
+            RoundPot roundPot,
+            int amountOfWinners)
+        {
+            if (amountOfWinners == 1)
+            {
+                return roundPot.Value.RoundTwoDigits();
             }
 
             var amountMitgegangenGewonnen = amountOfWinners - 1;
@@ -80,7 +79,7 @@ namespace HackerApp.Client.Areas.Shared.Models.PlayerGameRounds
             var thirdOfPot = roundPot.Value / 3;
 
             var relativeAmount = thirdOfPot / amountMitgegangenGewonnen;
-            return relativeAmount.RoundToNext50Rappen();
+            return relativeAmount.RoundTwoDigits();
         }
     }
 }
