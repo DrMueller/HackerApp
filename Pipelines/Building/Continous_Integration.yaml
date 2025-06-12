@@ -31,7 +31,7 @@ jobs:
         inputs:
           command: test
           projects: "Sources/**/*Tests.csproj"
-          arguments: "--configuration --configuration $(BuildConfiguration)"
+          arguments: "--configuration $(BuildConfiguration)"
       - task: petersendev.dotnet-global-tool-installer.DotnetGlobalToolInstaller.DotnetGlobalToolInstaller@0
         displayName: '.NET Core Global Tool'
         inputs:
