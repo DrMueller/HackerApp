@@ -1,6 +1,8 @@
 using Blazored.LocalStorage;
 using HackerApp.Client.Infrastructure.JavaScript.Services;
 using HackerApp.Client.Infrastructure.JavaScript.Services.Implementation;
+using HackerApp.Client.Infrastructure.SemKer.Services;
+using HackerApp.Client.Infrastructure.SemKer.Services.Implementation;
 using HackerApp.Client.Infrastructure.State.Services;
 using HackerApp.Client.Infrastructure.State.Services.Implementation;
 using HackerApp.Client.Infrastructure.State.Services.Servants;
@@ -18,6 +20,7 @@ namespace HackerApp.Client
             builder.Services.AddBlazoredLocalStorage();
 
             builder.Services.AddScoped<IGameState, GameState>();
+            builder.Services.AddSingleton<IGameAnalyzer, GameAnalyzer>();
             builder.Services.AddSingleton<IGameMapper, GameMapper>();
 
             builder.Services.AddSingleton<IJavaScriptLocator, JavaScriptLocator>();
