@@ -2,7 +2,7 @@
 @attribute [Route(Path)]
 
 <PlayerPayouts @ref="PlayerPayoutsRef"></PlayerPayouts>
-
+<GameAnalysis @ref="GameAnalysisRef"></GameAnalysis>
 
 @if (Game != null)
 {
@@ -15,6 +15,7 @@
                 <input type="number" @bind-value="@Einsatz"/>
             </div>
             <div class="ms-auto">
+                <Button Color="@ButtonColor.Primary" @onclick="ShowGameAnalysisAsync" @ref="ShotsButtonRef">Shots!</Button>
                 <Button Color="@ButtonColor.Primary" @onclick="CalculatePayoutAsync">Auszahlung</Button>
             </div>
         </div>

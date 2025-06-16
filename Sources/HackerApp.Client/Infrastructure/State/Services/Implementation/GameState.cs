@@ -16,6 +16,12 @@ namespace HackerApp.Client.Infrastructure.State.Services.Implementation
             return mapper.Map(dto!);
         }
 
+        public async Task<GameDto> LoadDtoAsync()
+        {
+            var tra = await localStorage.GetItemAsync<GameDto>(GameKey);
+            return tra!;
+        }
+
         public async Task PersistAsync(Game game)
         {
             var dto = mapper.Map(game);

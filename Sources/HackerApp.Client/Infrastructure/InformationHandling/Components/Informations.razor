@@ -1,0 +1,20 @@
+﻿@if (HasErrors)
+{
+    <div class="alert alert-danger" data-testid="alert-danger" role="alert">
+        <InfoList InfoEntries="Entries!.ErrorMessages"/>
+    </div>
+}
+
+@if (HasWarnings)
+{
+    <div class="alert alert-warning" role="alert">
+        <InfoList InfoEntries="Entries!.WarningMessages"/>
+    </div>
+}
+
+@if (HasInfos)
+{
+    <div class="alert alert-success" role="alert">
+        <InfoList InfoEntries="Entries!.InfoMessages"/>
+    </div>
+}

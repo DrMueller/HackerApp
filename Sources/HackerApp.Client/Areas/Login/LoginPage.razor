@@ -1,0 +1,39 @@
+﻿@using HackerApp.Client.Infrastructure.InformationHandling.Components
+@attribute [Route(Path)]
+@attribute [AllowAnonymous]
+
+<article class="content px-4">
+    <Informations Entries="Infos"/>
+
+    <EditForm Model="@LoginModel" OnValidSubmit="HandleValidSubmitAsync" class="mt-4">
+        <DataAnnotationsValidator/>
+
+        <div class="mb-3">
+            <label for="UserName" class="form-label">Benutzername</label>
+            <InputText data-testid="email" class="form-control" @bind-Value="@LoginModel.UserName" id="UserName"/>
+            <ValidationMessage For="() => LoginModel.UserName"/>
+        </div>
+
+        <div class="mb-3">
+            <label for="Password" class="form-label">Passwort</label>
+
+            <div class="pwd-container">
+                <div class="control">
+                    <InputText data-testid="password" type="password" class="form-control" @bind-Value="@LoginModel.Password" id="Password"></InputText>
+                </div>
+            </div>
+            <ValidationMessage For="() => LoginModel.Password"/>
+        </div>
+
+        <div class="row">
+            <Button Color="@ButtonColor.Primary" Type="@ButtonType.Submit">
+                Login
+            </Button>
+        </div>
+    </EditForm>
+
+    <form id="loginForm" hidden action="/api/accounts/login" method="post">
+        <input type="text" name="username" value="@LoginModel.UserName"/>
+        <input type="text" name="password" value="@LoginModel.Password"/>
+    </form>
+</article>

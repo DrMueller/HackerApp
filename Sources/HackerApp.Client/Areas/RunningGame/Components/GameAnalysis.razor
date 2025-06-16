@@ -1,0 +1,10 @@
+﻿<Modal @ref="ModalRef" Title="Shots baby">
+    <BodyTemplate>
+        <div class="row">
+            <div>@((MarkupString)Description!)</div>
+        </div>
+    </BodyTemplate>
+    <FooterTemplate>
+        <BlazorBootstrap.Button @onclick="CancelAsync">OK</BlazorBootstrap.Button>
+    </FooterTemplate>
+</Modal>

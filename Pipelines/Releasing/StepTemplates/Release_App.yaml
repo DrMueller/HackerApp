@@ -10,3 +10,4 @@ steps:
     azureSubscription: '${{ parameters.ConnectedServiceName }}'
     appType: '${{ parameters.WebAppKind }}'
     WebAppName: '${{ parameters.WebAppName }}'
+    JSONFiles: '**/appsettings.json'

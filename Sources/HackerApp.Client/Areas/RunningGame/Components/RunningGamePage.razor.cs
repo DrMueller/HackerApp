@@ -1,5 +1,9 @@
-﻿using HackerApp.Client.Areas.Shared.Models;
+﻿using BlazorBootstrap;
+using HackerApp.Client.Areas.RunningGame.Dtos;
+using HackerApp.Client.Areas.Shared.Models;
 using HackerApp.Client.Areas.Shared.Models.PlayerGameRounds;
+using HackerApp.Client.Infrastructure.HttpRequests;
+using HackerApp.Client.Infrastructure.State.Dtos;
 using HackerApp.Client.Infrastructure.State.Services;
 using Microsoft.AspNetCore.Components;
 
@@ -10,9 +14,13 @@ namespace HackerApp.Client.Areas.RunningGame.Components
         public const string Path = "/games/run";
 
         private readonly IList<PlayerPenalty> _playerPenalties = new List<PlayerPenalty>();
+        public GameAnalysis GameAnalysisRef { get; set; } = null!;
 
         [Inject]
         public required IGameState GameState { get; set; }
+
+        [Inject]
+        public required IHttpClientProxy HttpClientProxy { get; set; }
 
         [Parameter]
         public required IReadOnlyCollection<Player> Players { get; set; }
@@ -21,6 +29,7 @@ namespace HackerApp.Client.Areas.RunningGame.Components
 
         private Game? Game { get; set; }
         private PlayerPayouts PlayerPayoutsRef { get; set; } = null!;
+        private Button ShotsButtonRef { get; set; } = null!;
 
         protected override async Task OnInitializedAsync()
         {
@@ -56,6 +65,15 @@ namespace HackerApp.Client.Areas.RunningGame.Components
         {
             var payouts = Game!.CalculatePayouts();
             await PlayerPayoutsRef.ShowAsync(payouts);
+        }
+
+        private async Task ShowGameAnalysisAsync()
+        {
+            ShotsButtonRef.ShowLoading();
+            var game = await GameState.LoadDtoAsync();
+            var analysisResult = await HttpClientProxy.PostAsync<GameAnalysisResultDto, GameDto>("api/game/analyze", game);
+            ShotsButtonRef.HideLoading();
+            await GameAnalysisRef.ShowAsync(analysisResult.Text);
         }
     }
 }
