@@ -10,7 +10,8 @@ namespace HackerApp.Client.Areas.NewGame.Components
     [UsedImplicitly]
     public partial class NewGamePage
     {
-        public const string Path = "/";
+        public const string Path = "/newgame";
+        private const string Path2 = "/";
 
         [Inject]
         public required IGameState GameState { get; set; }

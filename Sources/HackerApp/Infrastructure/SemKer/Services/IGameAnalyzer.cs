@@ -4,6 +4,6 @@ namespace HackerApp.Infrastructure.SemKer.Services
 {
     public interface IGameAnalyzer
     {
-        Task<string> AnalyzeAsync(GameDto game);
+        Task<string> AnalyzeAsync(GameDto gameDto);
     }
 }

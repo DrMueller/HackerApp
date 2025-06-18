@@ -33,7 +33,7 @@ namespace HackerApp.Client.Areas.Shared.Models
 
             foreach (var player in Players)
             {
-                var playerLossOverallProfit = player.CalculateOverallLossProfit(GameRounds);
+                var playerLossOverallProfit = player.CalculateLossProfit(GameRounds, LossProfitType.All);
 
                 calc.Add(new PlayerLossProfitCalculation(player, playerLossOverallProfit));
             }

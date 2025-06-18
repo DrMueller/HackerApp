@@ -1,0 +1,11 @@
+﻿.custom-modal .modal-dialog {
+    max-width: 900px;
+    width: 90%;
+}
+
+@media (max-width: 576px) {
+    .custom-modal .modal-dialog {
+        max-width: 100%;
+        margin: 0;
+    }
+}

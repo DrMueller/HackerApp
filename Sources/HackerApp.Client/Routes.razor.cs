@@ -1,8 +1,8 @@
 ﻿using HackerApp.Client.Shell.ExceptionHandling;
 
-namespace HackerApp.Client.Layout
+namespace HackerApp.Client
 {
-    public partial class MainLayout
+    public partial class Routes
     {
         private AppError? AppError { get; set; }
 

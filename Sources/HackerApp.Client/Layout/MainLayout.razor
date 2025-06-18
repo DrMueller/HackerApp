@@ -1,34 +1,15 @@
-﻿@using HackerApp.Client.Areas.Login
-@using HackerApp.Client.Shared.Navigation.Components
-@using HackerApp.Client.Shell.ExceptionHandling
-@using Microsoft.AspNetCore.Components.Authorization
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 
-<CascadingAuthenticationState>
-    <AuthorizeView Context="_">
-        <Authorized>
-            <div class="container shadow p-0 mx-auto">
-                <div class="bb-page">
-                    <main>
-                        <article class="content px-4">
-                            <AppErrorBoundary @ref="ErrorBoundary" OnExceptionThrown="HandleExceptionThrown">
-                                <ChildContent>
-                                    <div class="py-2">
-                                        @Body
-                                    </div>
-                                </ChildContent>
-
-                                <ErrorContent>
-                                    <ErrorInfo AppError="@AppError"></ErrorInfo>
-                                </ErrorContent>
-                            </AppErrorBoundary>
-                        </article>
-                    </main>
-                </div>
-            </div>
-        </Authorized>
-        <NotAuthorized>
-            <Redirector RedirectPath="@LoginPage.Path"></Redirector>
-        </NotAuthorized>
-    </AuthorizeView>
-</CascadingAuthenticationState>
+<div class="page">
+    <div class="container shadow p-0 mx-auto">
+        <div class="bb-page">
+            <main>
+                <article class="content px-4">
+                    <div class="py-2">
+                        @Body
+                    </div>
+                </article>
+            </main>
+        </div>
+    </div>
+</div>

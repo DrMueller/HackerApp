@@ -14,7 +14,7 @@ namespace HackerApp.Client.Areas.RunningGame.Components
         public const string Path = "/games/run";
 
         private readonly IList<PlayerPenalty> _playerPenalties = new List<PlayerPenalty>();
-        public GameAnalysis GameAnalysisRef { get; set; } = null!;
+        private GameAnalysis GameAnalysisRef { get; set; } = null!;
 
         [Inject]
         public required IGameState GameState { get; set; }

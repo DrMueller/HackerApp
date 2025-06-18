@@ -9,6 +9,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Infrastructure\SemKer\NewFolder\**" />
+	  <Content Remove="Infrastructure\SemKer\NewFolder\**" />
+	  <EmbeddedResource Remove="Infrastructure\SemKer\NewFolder\**" />
+	  <None Remove="Infrastructure\SemKer\NewFolder\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\HackerApp.Client\HackerApp.Client.csproj" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.2" />
 		<PackageReference Include="Microsoft.SemanticKernel" Version="1.56.0" />

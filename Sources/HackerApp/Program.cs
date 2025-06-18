@@ -1,5 +1,7 @@
 using Blazored.LocalStorage;
 using HackerApp.Client.Areas.Login;
+using HackerApp.Client.Infrastructure.State.Services.Servants;
+using HackerApp.Client.Infrastructure.State.Services.Servants.Implementation;
 using HackerApp.Components;
 using HackerApp.Infrastructure.ExceptionHandling;
 using HackerApp.Infrastructure.SemKer.Services;
@@ -33,6 +35,7 @@ namespace HackerApp
             builder.Services.AddCascadingAuthenticationState();
             builder.Services.AddControllers();
             builder.Services.AddSingleton<IGameAnalyzer, GameAnalyzer>();
+            builder.Services.AddSingleton<IGameMapper, GameMapper>();
             builder.Services.AddSingleton<ISettingsProvider, SettingsProvider>();
             builder.Services.AddAuthorization();
 

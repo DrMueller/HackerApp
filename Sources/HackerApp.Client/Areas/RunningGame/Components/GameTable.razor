@@ -1,4 +1,5 @@
-﻿<PlayerPenaltyEdit
+﻿@using HackerApp.Client.Areas.Shared.Models
+<PlayerPenaltyEdit
     @ref="PlayerPenaltyEditRef"
     OnNewPenalty="OnPenaltyAdded">
 </PlayerPenaltyEdit>
@@ -19,7 +20,7 @@
                 @foreach (var player in Game.Players)
                 {
                     <th>
-                        @player.Name (@player.CalculateOverallLossProfit(Game.GameRounds).ToString("N2"))
+                        @player.Name (@player.CalculateLossProfit(Game.GameRounds, LossProfitType.All).ToString("N2"))
                         <BlazorBootstrap.Button Color="ButtonColor.Primary" @onclick="() => ShowPlayerPenalty(player.Name)">
                             +
                         </BlazorBootstrap.Button>

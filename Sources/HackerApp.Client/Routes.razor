@@ -1,7 +1,22 @@
-﻿@using HackerApp.Client.Layout
-<Router AppAssembly="typeof(Program).Assembly">
-    <Found Context="routeData">
-        <RouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)"/>
-        <FocusOnNavigate RouteData="routeData" Selector="h1"/>
-    </Found>
-</Router>
+﻿@using HackerApp.Client.Areas.Login
+@using HackerApp.Client.Layout
+@using HackerApp.Client.Shared.Navigation.Components
+@using HackerApp.Client.Shell.ExceptionHandling
+@using Microsoft.AspNetCore.Components.Authorization
+<AppErrorBoundary @ref="ErrorBoundary" OnExceptionThrown="HandleExceptionThrown">
+    <ChildContent>
+        <Router AppAssembly="typeof(Program).Assembly">
+            <Found Context="routeData">
+                <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)">
+                    <NotAuthorized>
+                        <Redirector RedirectPath="@LoginPage.Path"></Redirector>
+                    </NotAuthorized>
+                </AuthorizeRouteView>
+                <FocusOnNavigate RouteData="routeData" Selector="h1"/>
+            </Found>
+        </Router>
+    </ChildContent>
+    <ErrorContent>
+        <ErrorInfo AppError="@AppError"></ErrorInfo>
+    </ErrorContent>
+</AppErrorBoundary>
