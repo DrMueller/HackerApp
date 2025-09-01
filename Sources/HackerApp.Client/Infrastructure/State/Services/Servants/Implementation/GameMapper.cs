@@ -1,5 +1,5 @@
 ﻿using HackerApp.Client.Areas.Shared.Models;
-using HackerApp.Client.Areas.Shared.Models.PlayerGameRounds;
+using HackerApp.Client.Areas.Shared.Models.Pgr;
 using HackerApp.Client.Infrastructure.State.Dtos;
 using HackerApp.Client.Infrastructure.State.Dtos.PlayerGameRounds;
 
@@ -35,11 +35,12 @@ namespace HackerApp.Client.Infrastructure.State.Services.Servants.Implementation
         private static GameRound MapGameRound(GameRoundDto dto, IReadOnlyCollection<Player> players, GameRound? prevRound)
         {
             var roundNumber = prevRound?.RoundNumber + 1 ?? 0;
-
+            var pgr = dto.PlayerGameRounds.Select(f => MapPlayerGameRound(f, players)).ToList();
+            
             return new GameRound(
                 roundNumber,
                 dto.RoundEinsatz,
-                dto.PlayerGameRounds.Select(f => MapPlayerGameRound(f, players)).ToList(),
+                new PlayerGameRounds(pgr),
                 prevRound);
         }
 

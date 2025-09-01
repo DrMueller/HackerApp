@@ -1,5 +1,5 @@
 ﻿using BlazorBootstrap;
-using HackerApp.Client.Areas.Shared.Models.PlayerGameRounds;
+using HackerApp.Client.Areas.Shared.Models.Pgr;
 using Microsoft.AspNetCore.Components;
 
 namespace HackerApp.Client.Areas.RunningGame.Components

@@ -1,4 +1,4 @@
-﻿using HackerApp.Client.Areas.Shared.Models.PlayerGameRounds;
+﻿using HackerApp.Client.Areas.Shared.Models.Pgr;
 
 namespace HackerApp.Client.Areas.Shared.Models
 {
@@ -12,7 +12,6 @@ namespace HackerApp.Client.Areas.Shared.Models
         }
 
         public GameRound CurrentRound => rounds[0];
-
         public IReadOnlyCollection<GameRound> GameRounds => rounds.AsReadOnly();
         public IReadOnlyCollection<Player> Players { get; } = players;
 
@@ -41,6 +40,16 @@ namespace HackerApp.Client.Areas.Shared.Models
             var calcs = new PlayerLossProfitCalculations(calc);
 
             return calcs.CalculatePayments();
+        }
+
+        public void DeleteLastRound()
+        {
+            if (!rounds.Any())
+            {
+                return;
+            }
+
+            rounds.RemoveAt(0);
         }
     }
 }

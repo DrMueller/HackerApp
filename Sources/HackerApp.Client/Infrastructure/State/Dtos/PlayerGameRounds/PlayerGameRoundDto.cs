@@ -1,4 +1,4 @@
-﻿using HackerApp.Client.Areas.Shared.Models.PlayerGameRounds;
+﻿using HackerApp.Client.Areas.Shared.Models.Pgr;
 using JetBrains.Annotations;
 
 namespace HackerApp.Client.Infrastructure.State.Dtos.PlayerGameRounds

@@ -1,4 +1,4 @@
-﻿@foreach (var res in GameRound.PlayerGameRounds)
+﻿@foreach (var res in GameRound.PlayerGameRounds.Rounds)
 {
     <td>
         @GameRound.CalculcateEarnings(res.Player).ToString("N2")

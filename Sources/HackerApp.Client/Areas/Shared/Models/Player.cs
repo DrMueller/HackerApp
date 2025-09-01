@@ -17,14 +17,14 @@
             var roundsToCount = rounds.Skip(1).ToList();
 
             var einsaetze = roundsToCount
-                .Where(f => f.EinsatzWasPaid)
-                .Where(f => f.PlayerGameRounds.Any(g => g.Player.Name == Name))
+                .Where(f => f.PlayerGameRounds.EinsatzWasPaid)
+                .Where(f => f.PlayerGameRounds.Rounds.Any(g => g.Player.Name == Name))
                 .Sum(f => f.RoundEinsatz) * -1;
 
             var earnings = roundsToCount.Sum(f => f.CalculcateEarnings(this));
 
             var penalties = rounds
-                .SelectMany(f => f.PlayerGameRounds)
+                .SelectMany(f => f.PlayerGameRounds.Rounds)
                 .Where(f => f.Player.Name == Name)
                 .Sum(f => f.RoundPenalty) * -1;
 

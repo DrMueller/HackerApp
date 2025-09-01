@@ -1,4 +1,5 @@
-﻿@using HackerApp.Client.Shared.Zoom
+﻿@using HackerApp.Client.Shared.Modal
+@using HackerApp.Client.Shared.Zoom
 @attribute [Route(Path)]
 
 <PlayerPayouts @ref="PlayerPayoutsRef"></PlayerPayouts>
@@ -17,12 +18,15 @@
             <div class="ms-auto">
                 <Button Color="@ButtonColor.Primary" @onclick="ShowGameAnalysisAsync" @ref="ShotsButtonRef">Shots!</Button>
                 <Button Color="@ButtonColor.Primary" @onclick="CalculatePayoutAsync">Auszahlung</Button>
+                <BlazorBootstrap.Button Color="ButtonColor.Danger" @onclick="DeleteLastRoundAsync">
+                    <Icon Name="IconName.Trash"/>
+                </BlazorBootstrap.Button>
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <GameTable 
+                <GameTable
                     OnPenaltyAdded="AddPlayerPenalty"
                     Game="@Game">
                 </GameTable>
@@ -34,3 +38,5 @@ else
 {
     <p>loading..</p>
 }
+
+<GenericModal @ref="ModalRef"></GenericModal>

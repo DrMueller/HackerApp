@@ -1,16 +1,15 @@
 ﻿using System.Globalization;
-using HackerApp.Client.Areas.Shared.Models.PlayerGameRounds;
+using HackerApp.Client.Areas.Shared.Models.Pgr;
 
 namespace HackerApp.Client.Areas.Shared.Models
 {
     public class GameRound(
         int roundNumber,
         double roundEinsatz,
-        IReadOnlyCollection<PlayerGameRound> playerGameRounds,
+        PlayerGameRounds playerGameRounds,
         GameRound? prevRound)
     {
-        public bool EinsatzWasPaid => PlayerGameRounds.All(x => x.Result.ResultType != GameRoundPlayerResultType.MitgegangenVerloren && x.Result.ResultType != GameRoundPlayerResultType.HackedVerloren);
-        public IReadOnlyCollection<PlayerGameRound> PlayerGameRounds { get; } = playerGameRounds;
+        public PlayerGameRounds PlayerGameRounds { get; } = playerGameRounds;
 
         public double RoundEinsatz { get; } = roundEinsatz;
 
@@ -19,7 +18,7 @@ namespace HackerApp.Client.Areas.Shared.Models
             get
             {
                 var result = RoundEinsatz.ToString(CultureInfo.InvariantCulture);
-                if (EinsatzWasPaid)
+                if (PlayerGameRounds.EinsatzWasPaid)
                 {
                     result += " *";
                 }
@@ -34,14 +33,14 @@ namespace HackerApp.Client.Areas.Shared.Models
         {
             get
             {
-                var potFromPenalties = PlayerGameRounds.Sum(f => f.RoundPenalty);
-                var roundPlayerEinsatz = RoundEinsatz * PlayerGameRounds.Count;
+                var potFromPenalties = PlayerGameRounds.Rounds.Sum(f => f.RoundPenalty);
+                var roundPlayerEinsatz = RoundEinsatz * PlayerGameRounds.Rounds.Count;
                 if (prevRound == null)
                 {
                     return new RoundPot(potFromPenalties + roundPlayerEinsatz);
                 }
 
-                var loosers = prevRound.PlayerGameRounds.Where(f => f.Result.ResultType is GameRoundPlayerResultType.MitgegangenVerloren or GameRoundPlayerResultType.HackedVerloren).ToList();
+                var loosers = prevRound.PlayerGameRounds.Rounds.Where(f => f.Result.ResultType is GameRoundPlayerResultType.MitgegangenVerloren or GameRoundPlayerResultType.HackedVerloren).ToList();
 
                 if (loosers.Any())
                 {
@@ -50,9 +49,9 @@ namespace HackerApp.Client.Areas.Shared.Models
                     return new RoundPot(potValue + potFromPenalties);
                 }
 
-                if (prevRound.PlayerGameRounds.All(f => f.Result.ResultType == GameRoundPlayerResultType.None))
+                if (prevRound.PlayerGameRounds.Rounds.All(f => f.Result.ResultType == GameRoundPlayerResultType.None))
                 {
-                    var newRoundPot = RoundEinsatz * PlayerGameRounds.Count;
+                    var newRoundPot = RoundEinsatz * PlayerGameRounds.Rounds.Count;
                     return new RoundPot(newRoundPot + prevRound.RoundPot.Value + potFromPenalties);
                 }
 
@@ -83,24 +82,23 @@ namespace HackerApp.Client.Areas.Shared.Models
             return new GameRound(
                 roundNumber,
                 einsatz,
-                playerGameRounds,
+                new PlayerGameRounds(playerGameRounds),
                 prevRound);
         }
 
         public void AddPenalty(PlayerPenalty pen)
         {
             PlayerGameRounds
+                .Rounds
                 .Single(f => f.Player.Name == pen.PlayerName)
                 .AddPenalty(pen);
         }
 
         public double CalculcateEarnings(Player player)
         {
-            var playerGameRound = PlayerGameRounds.Single(f => f.Player.Name == player.Name);
+            var earnings = new PlayerGameRoundEarnings(RoundPot, PlayerGameRounds, player);
 
-            var winnerCount = PlayerGameRounds.Count(f => f.Result.HasWon);
-
-            return playerGameRound.CalculateLossProfit(RoundPot, winnerCount);
+            return earnings.CalculateLossProfit();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json;
 using HackerApp.Client.Areas.Shared.Models;
-using HackerApp.Client.Areas.Shared.Models.PlayerGameRounds;
+using HackerApp.Client.Areas.Shared.Models.Pgr;
 using HackerApp.Client.Infrastructure.State.Dtos;
 using HackerApp.Client.Infrastructure.State.Services.Servants;
 using HackerApp.Infrastructure.SemKer.Models;
@@ -13,15 +13,10 @@ namespace HackerApp.Infrastructure.SemKer.Services.Implementation
     public class GameAnalyzer(ISettingsProvider settingsProvider, IGameMapper gameMapper) : IGameAnalyzer
     {
         private const string DeplyomentName = "gpt-4.1";
-
         private const string HackenDescription = "Hacken ist ein Spiel, bei dem Hacker versuchen, Geld (in Schweizer Franken) zu gewinnen, indem sie gegen andere Spieler eine Art Jass spielen. Das Spiel wird in Runden gespielt, und jede Runde hat einen Pot, der unter den Spielern aufgeteilt wird. Die Spieler können entweder selbst hacken oder sich an den Hacks anderer Spieler mitgehen. Hacker müssen zwei Stiche machen. Die die mitgehen müssen einen Stich machen. Der Hacker bekommt 2/3 des Pots, die Mitgehen teilen die restlichen 1/3 des Pots unter sich. Das Ziel des Spiels ist es, am Ende des Spiels das meiste Geld zu haben.";
-
         private const string Message = $"Analysier nachfolgendes Spiel und verteile Shots anhand von folgenden Merkmalen: Die Spieler mit den meisten Bussen, die am wenigsten spielen und am meisten gewinnen, müssen die meisten Shots zahlen. Die Spieler die oft spielen und/oder verlieren müssen die wenigsten zahlen. Jeder Spieler kann maxiumal drei Shots und muss mininmum keinen Shot zahlen. Wähl aus folgenden Shots zufällig einen aus {Shots} und gib allen pro Berechnung den gleichen Shot";
-
         private const string ModelId = "gpt-4.1";
-
         private const string Output = "Erstell eine kurze Zusammenfassung des Spielverlaufs gefolgt von einer Tabelle. Mach am Schluss eine kurze Auflistung pro Spieler, wie du sein Verhalten interpretiet hast und wieso er so und so viele Shots bekommt. Formatier alles in HTML exklusive die HTML-Tags. Das HTML wird via Bootstrap in Darkmode in einem Modal-Fenster dargestellt, optimier die Aufgabe auf das.";
-
         private const string Shots = "Jägermeister, Tequilla, Ouzo, Whisky, B52, Vodka, Cognac";
 
         public async Task<string> AnalyzeAsync(GameDto gameDto)
@@ -67,7 +62,7 @@ namespace HackerApp.Infrastructure.SemKer.Services.Implementation
             {
                 var ssp = new List<SpielerSpielrunde>();
 
-                foreach (var spielerGameRound in r.PlayerGameRounds)
+                foreach (var spielerGameRound in r.PlayerGameRounds.Rounds)
                 {
                     ssp.Add(new SpielerSpielrunde(
                         spielerGameRound.Player.Name,

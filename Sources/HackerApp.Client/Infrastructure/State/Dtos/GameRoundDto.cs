@@ -17,7 +17,7 @@ namespace HackerApp.Client.Infrastructure.State.Dtos
         {
             return new GameRoundDto
             {
-                PlayerGameRounds = model.PlayerGameRounds.Select(PlayerGameRoundDto.MapFromModel).ToList(),
+                PlayerGameRounds = model.PlayerGameRounds.Rounds.Select(PlayerGameRoundDto.MapFromModel).ToList(),
                 RoundNumber = model.RoundNumber,
                 RoundEinsatz = model.RoundEinsatz
             };

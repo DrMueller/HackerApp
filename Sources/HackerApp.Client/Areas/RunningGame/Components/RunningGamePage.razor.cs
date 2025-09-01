@@ -1,10 +1,11 @@
 ﻿using BlazorBootstrap;
 using HackerApp.Client.Areas.RunningGame.Dtos;
 using HackerApp.Client.Areas.Shared.Models;
-using HackerApp.Client.Areas.Shared.Models.PlayerGameRounds;
+using HackerApp.Client.Areas.Shared.Models.Pgr;
 using HackerApp.Client.Infrastructure.HttpRequests;
 using HackerApp.Client.Infrastructure.State.Dtos;
 using HackerApp.Client.Infrastructure.State.Services;
+using HackerApp.Client.Shared.Modal;
 using Microsoft.AspNetCore.Components;
 
 namespace HackerApp.Client.Areas.RunningGame.Components
@@ -14,7 +15,6 @@ namespace HackerApp.Client.Areas.RunningGame.Components
         public const string Path = "/games/run";
 
         private readonly IList<PlayerPenalty> _playerPenalties = new List<PlayerPenalty>();
-        private GameAnalysis GameAnalysisRef { get; set; } = null!;
 
         [Inject]
         public required IGameState GameState { get; set; }
@@ -28,6 +28,8 @@ namespace HackerApp.Client.Areas.RunningGame.Components
         private double Einsatz { get; set; } = 0.50;
 
         private Game? Game { get; set; }
+        private GameAnalysis GameAnalysisRef { get; set; } = null!;
+        private GenericModal ModalRef { get; set; } = null!;
         private PlayerPayouts PlayerPayoutsRef { get; set; } = null!;
         private Button ShotsButtonRef { get; set; } = null!;
 
@@ -65,6 +67,16 @@ namespace HackerApp.Client.Areas.RunningGame.Components
         {
             var payouts = Game!.CalculatePayouts();
             await PlayerPayoutsRef.ShowAsync(payouts);
+        }
+
+        private async Task DeleteLastRoundAsync()
+        {
+            var confirmed = await ModalRef.ShowConfirmationAsync("Löschen?", "Löschen?", "Ja", "Nein");
+            if (confirmed)
+            {
+                Game!.DeleteLastRound();
+                await GameState.PersistAsync(Game!);
+            }
         }
 
         private async Task ShowGameAnalysisAsync()
