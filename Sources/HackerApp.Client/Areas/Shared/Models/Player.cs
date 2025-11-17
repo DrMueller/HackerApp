@@ -1,4 +1,6 @@
-﻿namespace HackerApp.Client.Areas.Shared.Models
+﻿using HackerApp.Client.Areas.Shared.Models.Pgr;
+
+namespace HackerApp.Client.Areas.Shared.Models
 {
     public enum LossProfitType
     {
@@ -10,6 +12,15 @@
     public class Player(string name)
     {
         public string Name { get; } = name;
+        
+        public int CountByType(IReadOnlyCollection<GameRound> rounds, GameRoundPlayerResultType resultType)
+        {
+            return 
+                rounds
+                    .SelectMany(f => f.PlayerGameRounds.Rounds)
+                    .Where(f => f.Player.Name == Name)
+                    .Count(f => f.Result.ResultType == resultType);
+        }
 
         public double CalculateLossProfit(IReadOnlyCollection<GameRound> rounds, LossProfitType lossProfitType)
         {

@@ -3,6 +3,7 @@
              ValueExpression="() => ResultType"
              ValueChanged="@((GameRoundPlayerResultType selectedValue) => ResultTypeChanged.InvokeAsync(selectedValue))">
     <option value="@GameRoundPlayerResultType.None">-</option>
+    <option value="@GameRoundPlayerResultType.HackedGewonnenSafer">Gehackt G*</option>
     <option value="@GameRoundPlayerResultType.HackedGewonnen">Gehackt G</option>
     <option value="@GameRoundPlayerResultType.HackedVerloren">Gehackt V</option>
     <option value="@GameRoundPlayerResultType.MitgegangenGewonnen">Mit G</option>

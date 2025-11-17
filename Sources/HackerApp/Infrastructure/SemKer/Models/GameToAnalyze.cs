@@ -21,7 +21,8 @@ namespace HackerApp.Infrastructure.SemKer.Models
     public record SpielerStatistik(
         string SpielerName,
         double GesamtGewonnenVerloren,
-        double GesamteBussen);
+        double GesamteBussen,
+        int AnzahlSichergespielteRunden);
 
     [PublicAPI]
     public record GameToAnalyze(IReadOnlyCollection<SpielerStatistik> Statistik, IReadOnlyCollection<Spielrunde> Runden);

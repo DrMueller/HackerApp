@@ -20,6 +20,7 @@ namespace HackerApp.Client.Areas.Shared.Models.Pgr
                 case GameRoundPlayerResultType.MitgegangenVerloren:
                     return (roundPot.Value * -1).RoundTwoDigits();
                 case GameRoundPlayerResultType.HackedGewonnen:
+                case GameRoundPlayerResultType.HackedGewonnenSafer:
                     return CalculateHackerEarnings();
                 case GameRoundPlayerResultType.MitgegangenGewonnen:
                     return CalculateMitgegangenEarnings();

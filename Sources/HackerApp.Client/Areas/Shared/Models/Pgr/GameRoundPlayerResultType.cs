@@ -5,6 +5,7 @@
         None = 0,
         HackedVerloren,
         HackedGewonnen,
+        HackedGewonnenSafer,
         MitgegangenVerloren,
         MitgegangenGewonnen
     }

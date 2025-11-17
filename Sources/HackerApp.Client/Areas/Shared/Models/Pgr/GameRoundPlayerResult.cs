@@ -4,7 +4,8 @@
     {
         public bool HasWon =>
             ResultType == GameRoundPlayerResultType.HackedGewonnen ||
-            ResultType == GameRoundPlayerResultType.MitgegangenGewonnen;
+            ResultType == GameRoundPlayerResultType.MitgegangenGewonnen ||
+            ResultType == GameRoundPlayerResultType.HackedGewonnenSafer;
 
         public GameRoundPlayerResultType ResultType { get; set; } = GameRoundPlayerResultType.None;
     }
