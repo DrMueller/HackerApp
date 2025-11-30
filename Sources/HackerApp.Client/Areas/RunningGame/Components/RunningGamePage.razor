@@ -4,6 +4,7 @@
 
 <PlayerPayouts @ref="PlayerPayoutsRef"></PlayerPayouts>
 <GameAnalysis @ref="GameAnalysisRef"></GameAnalysis>
+<InvalidGameRoundDescription @ref="InvalidGameRoundDescriptionRef"></InvalidGameRoundDescription>
 
 @if (Game != null)
 {
@@ -27,6 +28,7 @@
         <div class="row">
             <div class="col">
                 <GameTable
+                    OnShowErorrRequested="ShowErrorsAsync"
                     OnPenaltyAdded="AddPlayerPenalty"
                     Game="@Game">
                 </GameTable>

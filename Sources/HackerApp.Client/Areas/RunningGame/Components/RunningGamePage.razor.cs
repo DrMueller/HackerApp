@@ -22,6 +22,8 @@ namespace HackerApp.Client.Areas.RunningGame.Components
         [Inject]
         public required IHttpClientProxy HttpClientProxy { get; set; }
 
+        public InvalidGameRoundDescription InvalidGameRoundDescriptionRef { get; set; } = null!;
+
         [Parameter]
         public required IReadOnlyCollection<Player> Players { get; set; }
 
@@ -77,6 +79,11 @@ namespace HackerApp.Client.Areas.RunningGame.Components
                 Game!.DeleteLastRound();
                 await GameState.PersistAsync(Game!);
             }
+        }
+
+        private async Task ShowErrorsAsync(IReadOnlyCollection<string> arg)
+        {
+            await InvalidGameRoundDescriptionRef.ShowAsync(arg);
         }
 
         private async Task ShowGameAnalysisAsync()

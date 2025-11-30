@@ -9,13 +9,15 @@ namespace HackerApp.Client.Areas.RunningGame.Components
         [EditorRequired]
         public required GameRound GameRound { get; set; }
 
-        private InvalidGameRoundDescription InvalidGameRoundDescriptionRef { get; set; } = null!;
+        [Parameter]
+        [EditorRequired]
+        public EventCallback<IReadOnlyCollection<string>> OnShowErorrRequested { get; set; }
 
         private async Task ShowErrorsAsync()
         {
             var warnings = GameRound.Validate();
 
-            await InvalidGameRoundDescriptionRef.ShowAsync(warnings);
+            await OnShowErorrRequested.InvokeAsync(warnings);
         }
     }
 }
