@@ -1,9 +1,13 @@
 ﻿<div class="row g-3 align-items-center">
     <div class="col-auto">
-        <label for="name" class="col-form-label">Name</label>
+        <label class="col-form-label">Name</label>
     </div>
     <div class="col-auto">
-        <InputText type="text" id="name" class="form-control" @bind-Value:set="SetPlayerNameAsync" @bind-Value:get="@Player.Name"/>
+        <input type="text"
+               class="form-control"
+               @bind:event="oninput"
+               @bind:get="Player.Name"
+               @bind:set="SetPlayerNameAsync" />
     </div>
     <div class="col-auto">
         <Button Size="@ButtonSize.Small" Color="@ButtonColor.Secondary" @onclick="() => RemovePlayerRequired.InvokeAsync(Player)">

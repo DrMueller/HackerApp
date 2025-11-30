@@ -1,4 +1,6 @@
-﻿@foreach (var res in GameRound.PlayerGameRounds.Rounds)
+﻿<InvalidGameRoundDescription @ref="InvalidGameRoundDescriptionRef"></InvalidGameRoundDescription>
+
+@foreach (var res in GameRound.PlayerGameRounds.Rounds)
 {
     <td>
         @GameRound.CalculcateEarnings(res.Player).ToString("N2")
@@ -15,4 +17,11 @@
 
 <td>
     @GameRound.RoundEinsatzDescription
+</td>
+
+<td>
+    @if (GameRound.IsInvalidRound)
+    {
+        <Icon Name="IconName.ExclamationDiamond" Color="IconColor.Danger" @onclick="ShowErrorsAsync"/>
+    }
 </td>

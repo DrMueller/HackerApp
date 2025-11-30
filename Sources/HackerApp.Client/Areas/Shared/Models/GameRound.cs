@@ -9,6 +9,7 @@ namespace HackerApp.Client.Areas.Shared.Models
         PlayerGameRounds playerGameRounds,
         GameRound? prevRound)
     {
+        public bool IsInvalidRound => Validate().Any();
         public PlayerGameRounds PlayerGameRounds { get; } = playerGameRounds;
 
         public double RoundEinsatz { get; } = roundEinsatz;
@@ -99,6 +100,39 @@ namespace HackerApp.Client.Areas.Shared.Models
             var earnings = new PlayerGameRoundEarnings(RoundPot, PlayerGameRounds, player);
 
             return earnings.CalculateLossProfit();
+        }
+
+        public IReadOnlyCollection<string> Validate()
+        {
+            var warnings = new List<string>();
+            var hasLosses = PlayerGameRounds.Rounds.Any(f => f.Result.ResultType is GameRoundPlayerResultType.MitgegangenVerloren or GameRoundPlayerResultType.HackedVerloren);
+
+            var hasWinner = PlayerGameRounds.Rounds.Any(f => f.Result.HasWon);
+
+            if (!hasWinner && hasLosses)
+            {
+                warnings.Add("Verlierer ohne Gewinner.");
+            }
+
+            var hackersCount = PlayerGameRounds.Rounds.Count(f => f.Result.IsHacker);
+
+            if (hackersCount > 1)
+            {
+                warnings.Add("Mehrere Hacker.");
+            }
+
+            var winnersCount = PlayerGameRounds.Rounds.Count(f => f.Result.HasWon);
+            var hackerHasWon = PlayerGameRounds.Rounds.Any(f => f.Result is { IsHacker: true, HasWon: true });
+
+            var maxWinnersAllowed = hackerHasWon ? 3 : 4;
+            if (winnersCount > maxWinnersAllowed)
+            {
+                warnings.Add("Zu viele Gewinner.");
+            }
+
+            warnings = warnings.OrderBy(f => f).ToList();
+
+            return warnings;
         }
     }
 }

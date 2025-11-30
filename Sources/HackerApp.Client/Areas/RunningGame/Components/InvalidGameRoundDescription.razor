@@ -1,0 +1,13 @@
+﻿<Modal @ref="ModalRef" Title="Eingabefehler">
+    <BodyTemplate>
+        <ul>
+            @foreach (var error in Description)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    </BodyTemplate>
+    <FooterTemplate>
+        <BlazorBootstrap.Button @onclick="CancelAsync">OK</BlazorBootstrap.Button>
+    </FooterTemplate>
+</Modal>

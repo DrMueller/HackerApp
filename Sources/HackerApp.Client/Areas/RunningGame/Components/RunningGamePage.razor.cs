@@ -71,7 +71,7 @@ namespace HackerApp.Client.Areas.RunningGame.Components
 
         private async Task DeleteLastRoundAsync()
         {
-            var confirmed = await ModalRef.ShowConfirmationAsync("Löschen?", "Löschen?", "Ja", "Nein");
+            var confirmed = await ModalRef.ShowConfirmationAsync("Löschen?", "Letzte Spielrunde löschen?", "Ja", "Nein");
             if (confirmed)
             {
                 Game!.DeleteLastRound();
