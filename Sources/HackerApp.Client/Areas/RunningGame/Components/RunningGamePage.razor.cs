@@ -22,7 +22,7 @@ namespace HackerApp.Client.Areas.RunningGame.Components
         [Inject]
         public required IHttpClientProxy HttpClientProxy { get; set; }
 
-        public InvalidGameRoundDescription InvalidGameRoundDescriptionRef { get; set; } = null!;
+        private InvalidGameRoundDescription InvalidGameRoundDescriptionRef { get; set; } = null!;
 
         [Parameter]
         public required IReadOnlyCollection<Player> Players { get; set; }
