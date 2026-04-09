@@ -10,5 +10,6 @@ namespace HackerApp.Infrastructure.Settings.Provisioning.Models
         public required string UserPassword { get; set; }
         public required string OpenAiEndpoint { get; set; }
         public required string OpenAiKey { get; set; }
+        public required string OpenAiDeploymentName { get; set; }
     }
 }
