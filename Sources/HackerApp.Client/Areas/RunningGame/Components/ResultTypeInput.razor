@@ -1,7 +1,8 @@
 ﻿@using HackerApp.Client.Areas.Shared.Models.Pgr
 <InputSelect style="width: 60px;" Value="ResultType"
              ValueExpression="() => ResultType"
-             ValueChanged="@((GameRoundPlayerResultType selectedValue) => ResultTypeChanged.InvokeAsync(selectedValue))">
+             TValue="GameRoundPlayerResultType"
+             ValueChanged="HandleValueChangedAsync">
     <option value="@GameRoundPlayerResultType.None">-</option>
     <option value="@GameRoundPlayerResultType.HackedGewonnenSafer">Gehackt G*</option>
     <option value="@GameRoundPlayerResultType.HackedGewonnen">Gehackt G</option>

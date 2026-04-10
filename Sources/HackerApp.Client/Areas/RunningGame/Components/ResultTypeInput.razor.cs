@@ -10,5 +10,11 @@ namespace HackerApp.Client.Areas.RunningGame.Components
 
         [Parameter]
         public EventCallback<GameRoundPlayerResultType> ResultTypeChanged { get; set; }
+
+        private async Task HandleValueChangedAsync(GameRoundPlayerResultType arg)
+        {
+            ResultType = arg;
+            await ResultTypeChanged.InvokeAsync(arg);
+        }
     }
 }
